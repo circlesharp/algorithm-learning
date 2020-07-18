@@ -1,10 +1,3 @@
-/*
- * @Author: Tan Rongzhao 
- * @Date: 2020-04-10 10:48:46 
- * @Last Modified by:   Tan Rongzhao 
- * @Last Modified time: 2020-04-10 10:48:46 
- */
-
 const { generateRandomArray, generateNearlyOrderedArray, testSort } = require('./helper/sortTestHelper')
 
 const selectionSort = require('./algo_sort/selection_sort')

@@ -1,10 +1,3 @@
-/*
- * @Author: Tan Rongzhao 
- * @Date: 2020-04-10 10:48:38 
- * @Last Modified by:   Tan Rongzhao 
- * @Last Modified time: 2020-04-10 10:48:38 
- */
-
 const strictThreshold = 10000
 
 const generateRandomArray = (n, rangeL, rangeR) => {

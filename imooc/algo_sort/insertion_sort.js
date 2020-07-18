@@ -5,7 +5,7 @@
  * @Last Modified time: 2020-04-10 10:47:55
  */
 
-const { generateRandomArray, generateNearlyOrderedArray, swap, testSort } = require('../helper/sortTestHelper')
+const { generateRandomArray, generateNearlyOrderedArray, swap, testSort } = require('../../common/sortTestHelper')
 
 const insertionSortV1 = (arr, n) => {
   for (let i = 1; i < n; i++) {
