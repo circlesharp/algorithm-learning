@@ -74,7 +74,8 @@ module.exports = {
 
 const main = () => {
   let n = 20
-  let arr = generateNearlyOrderedArray(n, 3)
+  // let arr = generateNearlyOrderedArray(n, 3)
+  let arr = generateRandomArray(n, 2, 19)
   console.log(isSorted(arr, n), arr)
 }
 
