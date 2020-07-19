@@ -1,5 +1,3 @@
-const { fun } = require("../grokking/chap_2/selection_sort")
-
 /**
  * 得到 base-2 logarithm, in JS, Math.log's base is Math.E
  * @param {Number} logarithm 
@@ -29,9 +27,17 @@ function findSmallest(arr) {
   return { smallestIndex, smallestValue }
 }
 
+
+function swap(arr, mate, anotherMate) {
+  let temp = arr[mate]
+  arr[mate] = arr[anotherMate]
+  arr[anotherMate] = temp
+}
+
 module.exports = {
   binLog,
   findSmallest,
+  swap,
 }
 
 /**

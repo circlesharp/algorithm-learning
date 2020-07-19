@@ -1,3 +1,5 @@
+const { swap } = require('./utils')
+
 /**
  * 常量，严格阈值，当超过阈值时候，不进行严格检测
  */
@@ -87,17 +89,9 @@ const isSortedStrict = (arr, testArr, n) => {
   }
 }
 
-const swap = (arr, mate, anotherMate) => {
-  let temp = arr[mate]
-  arr[mate] = arr[anotherMate]
-  arr[anotherMate] = temp
-}
-
-
 module.exports = {
   generateRandomArray,
   generateNearlyOrderedArray,
-  swap,
   testSort
 }
 

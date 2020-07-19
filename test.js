@@ -1,3 +1,2 @@
-const { binLog } = require('./helper/utils')
-
-console.log(binLog(3, false))
+let arr = [1, 2, 3]
+console.log(arr.slice(1))
