@@ -1,6 +1,15 @@
+/**
+ * 常量，严格阈值，当超过阈值时候，不进行严格检测
+ */
 const strictThreshold = 10000
 
-const generateRandomArray = (n, rangeL, rangeR) => {
+/**
+ * 产生无序数组
+ * @param {Number} n 数组长度 
+ * @param {Number} rangeL 起（包含）
+ * @param {Number} rangeR 止（包含）
+ */
+function generateRandomArray(n, rangeL, rangeR) {
   if ( rangeL >= rangeR ) { throw 'rangeL should smaller then rangeR' }
   let arr = []
   for (let i = 0; i < n; i++) {
@@ -9,7 +18,12 @@ const generateRandomArray = (n, rangeL, rangeR) => {
   return arr
 }
 
-const generateNearlyOrderedArray = (n, swapTimes) => {
+/**
+ * 产生近乎有序的数组
+ * @param {Number} n 数组长度
+ * @param {Number} swapTimes 交互次数（越少越接近有序）
+ */
+function generateNearlyOrderedArray(n, swapTimes) {
   let arr = []
   for (let i = 0; i < n; i++) {
     arr[i] = i
@@ -22,20 +36,36 @@ const generateNearlyOrderedArray = (n, swapTimes) => {
   return arr
 }
 
-const testSort = (sortName, sortFunction, arr, n) => {
-  const testArr = arr.slice()
+/**
+ * 检测数组是否有序
+ * @param {String} sortName 方法名称（用于展示）
+ * @param {Function} sortFunction 方法本身
+ * @param {Array} arr 要排序的数组
+ * @param {Number} n 要排序的数组的长度
+ */
+function testSort(sortName, sortFunction, originArr, n) {
   const startTime = new Date().getTime()
-  sortFunction(testArr, n)
+  const finalArr = sortFunction(originArr, n)
   const endTime = new Date().getTime()
-  const isStrict = n > strictThreshold ? '(未进行严格测试)' : ''
-  if (isSorted(testArr, n) && isSortedStrict(arr, testArr, n)) {
-    console.log(`${sortName} 的运行时间为: ${(endTime - startTime) / 1000}\ts.\t${isStrict}`)
+  const time = (endTime - startTime) / 1000
+  const strict = n <= strictThreshold
+  const result = isSorted(finalArr, n) && isSortedStrict(originArr, finalArr, n)
+  if (result) {
+    console.log(`${sortName} 的运行时间为: ${time}\ts.\t${strict ? '' : '(未经严格测试)'}`)
   } else {
     console.log(`${sortName} 未通过测试。`)
   }
+  return {
+    sortName,
+    result,
+    time,
+    strict,
+    originArr,
+    finalArr,
+  }
 }
 
-const isSorted = (testArr, n) => {
+function isSorted(testArr, n) {
   for (let i = 0; i < n; i++) {
     if (testArr[i] > testArr[i + 1]) {
       return false
@@ -74,9 +104,8 @@ module.exports = {
 
 const main = () => {
   let n = 20
-  // let arr = generateNearlyOrderedArray(n, 3)
-  let arr = generateRandomArray(n, 2, 19)
-  console.log(isSorted(arr, n), arr)
+  let arr = generateRandomArray(n, 2, n)
+  console.log(arr)
 }
 
 if (require.main === module) {
