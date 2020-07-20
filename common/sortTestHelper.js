@@ -1,4 +1,4 @@
-const { swap } = require('./utils')
+const { swap, randomInt } = require('./utils')
 
 /**
  * 常量，严格阈值，当超过阈值时候，不进行严格检测
@@ -15,7 +15,7 @@ function generateRandomArray(n, rangeL, rangeR) {
   if ( rangeL >= rangeR ) { throw 'rangeL should smaller then rangeR' }
   let arr = []
   for (let i = 0; i < n; i++) {
-    arr[i] = rangeL + Math.floor((rangeR - rangeL + 1) * Math.random())
+    arr[i] = randomInt(rangeL, rangeR)
   }
   return arr
 }

@@ -27,7 +27,24 @@ function findSmallest(arr) {
   return { smallestIndex, smallestValue }
 }
 
+/**
+ * 产生一定范围内的随机整数
+ * 原理: delta + 1 是因为，在 delta 中的 concrete 的点会比 delta 多一。
+ * 要解决这个问题，就是使用地板除法
+ * 如果不 + 1， 端点的两个整数(rangeL, rangeR)出现的概率，数学意义上是 0。
+ * @param {Number} rangeL 随机整数的最小值（包含）
+ * @param {Number} rangeR 随机整数的最大值（包含）
+ */
+function randomInt(rangeL, rangeR) {
+  return rangeL + Math.floor((rangeR - rangeL + 1) * Math.random())
+}
 
+/**
+ * 数组交换元素，原数组上交换，不产生副本
+ * @param {Array} arr 
+ * @param {Number} mate 
+ * @param {Number} anotherMate 
+ */
 function swap(arr, mate, anotherMate) {
   let temp = arr[mate]
   arr[mate] = arr[anotherMate]
@@ -38,13 +55,16 @@ module.exports = {
   binLog,
   findSmallest,
   swap,
+  randomInt,
 }
 
 /**
  * START in-file test
  */
 const main = () => {
-  console.log(findSmallest([1, 2,-1,4,0,4]))
+  for (let i = 0; i < 10; i++) {
+    console.log(randomInt(1, 6))
+  }
 }
 if (require.main === module) {
   main()
