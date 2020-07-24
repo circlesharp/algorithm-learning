@@ -2,7 +2,7 @@ const {
   graph,
   costs,
   parent,
-} = require('./prepare_dijkstra_algorithm_2')
+} = require('./prepare_dijkstra_algorithm_3')
 
 /**
  * 只要还有要处理的节点
@@ -14,13 +14,19 @@ const {
 
 const unProcessed = Object.keys(costs)
 const processed = []
+const destination = 'f'
 
+/**
+ * 主函数
+ * 当 cheapest.node 是终点，退出循环
+ * 否则，跟新这个节点的邻居，并将节点除名
+ */
 function dijkstraAlgorithm() {
-  let cheapest = findCheapest()
-  while (unProcessed.length > 0) {
+  while (true) {
+    cheapest = findCheapest()
+    if (cheapest.node === destination) break
     updateNeighbor(cheapest)
     processed.push(cheapest.node)
-    cheapest = findCheapest()
   }
   return {
     cheapest,
@@ -28,6 +34,10 @@ function dijkstraAlgorithm() {
   }
 }
 
+/**
+ * 在 unProcessed 中找到 cost 最小的节点
+ * 返回 cost 与 node 本身
+ */
 function findCheapest() {
   let cheapestNode = unProcessed[0]
   let cheapestCost = costs[cheapestNode]
@@ -43,6 +53,10 @@ function findCheapest() {
   }
 }
 
+/**
+ * 更新节点的邻居：
+ * 开销、父节点
+ */
 function updateNeighbor(cheapest) {
   let { node, cost } = cheapest
   unProcessed.forEach(neighbor => {
