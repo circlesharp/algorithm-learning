@@ -51,20 +51,31 @@ function swap(arr, mate, anotherMate) {
   arr[anotherMate] = temp
 }
 
+/**
+ * 把数组中的多个内容打印出来
+ * @param {Array} needToPrints 
+ */
+function printAll(needToPrints) {
+  needToPrints.forEach(i => console.log(i))
+}
+
 module.exports = {
   binLog,
   findSmallest,
   swap,
   randomInt,
+  printAll,
 }
 
 /**
  * START in-file test
  */
 const main = () => {
+  needToPrints = []
   for (let i = 0; i < 10; i++) {
-    console.log(randomInt(1, 6))
+    needToPrints.push(randomInt(1, 6))
   }
+  printAll(needToPrints)
 }
 if (require.main === module) {
   main()

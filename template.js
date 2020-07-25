@@ -9,8 +9,9 @@ module.exports = {
 /**
  * START in-file test
  */
+const { printAll } = require('')
 const main = () => {
-
+  printAll([])
 }
 if (require.main === module) {
   main()
