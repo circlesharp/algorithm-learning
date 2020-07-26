@@ -16,4 +16,4 @@
 
 ## Appendix
 -----------
-1. Introduction to Logarithms: `https://www.mathsisfun.com/algebra/logarithms.html`
+1. [Introduction to Logarithms](https://www.mathsisfun.com/algebra/logarithms.html)
