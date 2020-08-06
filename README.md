@@ -4,6 +4,7 @@
 ----------
 1. imooc -> 慕课网的bobobo老师
 2. grokking -> 算法图解 Grokking Algorithms
+3. functional -> 函数式编程
 
 ## FileOrganization
 -------------------
