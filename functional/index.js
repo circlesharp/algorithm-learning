@@ -1,4 +1,4 @@
 const _ = require('underscore');
-require('./chap_1/parseAge');
+require('./chap_1/nth');
 
 // _.times(4, () => console.log('hello, underscore.'));

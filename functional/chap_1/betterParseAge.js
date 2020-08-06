@@ -27,6 +27,10 @@ function note(thing) {
   console.log(`NOTE: ${thing}`);
 }
 
-parseAge('42');
+// parseAge('42');
 // parseAge(42);
-parseAge('circl');
+// parseAge('circl');
+
+module.exports = {
+  fail, warn, note
+}
