@@ -19,3 +19,4 @@
 -----------
 1. [Introduction to Logarithms](https://www.mathsisfun.com/algebra/logarithms.html)
 2. [Funcitonal Programming in JavaScript in YouTube](https://www.youtube.com/playlist?list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
+3. [Closures in MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
