@@ -1,3 +1,2 @@
 node_modules/
-book-grokking-algorithm.pdf
-functional-programming.pdf
+*.pdf

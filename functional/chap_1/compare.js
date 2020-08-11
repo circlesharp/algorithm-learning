@@ -33,5 +33,12 @@ function comparator(pred) {
   };
 }
 
-console.log(tests.sort(comparator(lessOrEqual)));
-console.log(tests.sort(comparator(_.isEqual)));
+// console.log(tests.sort(comparator(lessOrEqual)));
+// console.log(tests.sort(comparator(_.isEqual)));
+
+const t = tests.sort((a, b) => {
+  return a === b;
+})
+
+console.log(t, tests);
+
