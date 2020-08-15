@@ -1,5 +1,4 @@
 const _ = require('underscore');
-const { groupBy } = require('underscore');
 
 /**
  * sortBy, groupBy, countBy
