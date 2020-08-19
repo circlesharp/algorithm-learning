@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon chap_2/data_thinking_2.js"
+    "start": "nodemon chap_3/dynamic_scope_2.js"
   },
   "keywords": [],
   "author": "",
