@@ -6,6 +6,10 @@
 
 const _ = require('underscore');
 const { construct } = require('./applicative_programming_example_4.js');
+const existy = x =>
+  x != null;
+const truthy = x =>
+  x !== false && existy(x);
 
 const pretty = x => {
   console.log(
@@ -75,3 +79,38 @@ pretty(
     ['edition']
   )
 );
+
+/**
+ * WHERE
+ * _.without => Return a version of the array that does not contain the specified value(s).
+ */
+
+const restrict = (table, pred) =>
+  _.reduce(
+    table,
+    (newTable, obj) => {
+      if (truthy(pred(obj))) return newTable;
+      return _.without(newTable, obj);
+    }, 
+    table,
+  );
+
+pretty(
+  restrict(library, book => book.ed > 1)
+)
+
+
+/**
+ * SELECT title, edition FROM (
+ *   SELECT ed AS edition FROM library
+ * ) WHERE edition > 1;
+ */
+pretty(
+  restrict(
+    project(
+      as(library, {ed: 'edition'}),
+      ['title', 'edition'],
+    ),
+    book => book.edition > 1
+  )
+)
