@@ -25,3 +25,13 @@ console.log(
   save(),
   f,
 );
+
+/**
+ * [m, n] 取随机整数
+ */
+
+const randomInt = (m, n) =>
+  parseInt(
+    m + (n + 1 - m) * Math.random(),
+    10,
+  );
