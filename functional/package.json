@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon chap_4/capturing_variables.js"
+    "start": "nodemon chap_4/fnull.js"
   },
   "keywords": [],
   "author": "",
