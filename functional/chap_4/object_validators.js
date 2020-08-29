@@ -42,6 +42,7 @@ console.log(
 /**
  * return a function that
  * with a message property.
+ * 包装了一个函数，让这个函数原本的 message 不被覆盖
  * 
  * @param {string} message 
  * @param {function} fun 
@@ -73,19 +74,28 @@ console.log(
 /**
  * The purpose of the function hasKeys is
  * to provide an execution configuration to fun.
+ *
  * 
  * @param  {...string} KEYS 
+ * 
+ * _.all === _.every
+ * _.any === _.some
+ * _.has
  */
 const hasKeys = (...KEYS) => {
+  // const fun = obj =>
+  //   _.every(KEYS, k => _.has(obj, k));
   const fun = obj =>
-    _.every(KEYS, k => _.has(obj, k));
+    /* 有些情况不能用 in 操作符，因为有可能 obj 不是对象 */
+    // _.all(KEYS, k => Object.keys(obj).includes(k));
+    _.all(KEYS, k => obj.hasOwnProperty(k));
   fun.message = `Must have values for keys: ${KEYS.join(' ')}`;
   return fun;
 };
 
 const checkCommand2 = checker(
   validator('Must be a map', aMap),
-  hasKeys('mag', 'type'),
+  hasKeys('msg', 'type'),
 );
 
 console.log(
