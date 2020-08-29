@@ -31,7 +31,7 @@ const repeatedly = (times, fun) =>
   _.map(_.range(times), fun);
 
 console.log(
-  repeatedly(3, always('circl')),
+  // repeatedly(3, always('circl')),
 );
 
 /**
@@ -67,5 +67,9 @@ const rev = invoker('reverse', Array.prototype.reverse)
 
 // functional style prefers functions taking the invocation target as an argument
 console.log(
-  _.map([[1, 2, 3]], rev),
+  // _.map([[1, 2, 3]], rev),
 );
+
+module.exports = {
+  invoker,
+};
