@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon chap_5/partial_application_in_action.js"
+    "start": "nodemon chap_5/partially_applying_3_preconditions.js"
   },
   "keywords": [],
   "author": "",

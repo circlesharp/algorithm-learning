@@ -35,6 +35,11 @@ const complement = pred =>
     return !pred.call(null, ...Array.from(arguments));
   }
 
+/* another way for complement */
+/*
+const complement = pred =>
+  (...args) => !pred(...args);*/
+
 console.log(
   ['a', 'b', 3, 'd'].filter(complement(_.isNumber))
 )
