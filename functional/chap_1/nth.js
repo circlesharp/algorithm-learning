@@ -21,8 +21,8 @@ function nth(a, index) {
  return a[index];
 }
 
-note(nth(['a', 'b', 'c'], 2));
-note(nth('jkl', 2));
+// note(nth(['a', 'b', 'c'], 2));
+// note(nth('jkl', 2));
 // note(nth({}, 2));
 // note(nth('jkl', 200));
 // note(nth('jkl', 'aaa'));
@@ -31,6 +31,6 @@ function second(a) {
   return nth(a, 1);
 }
 
-note(second([1, 2, 4]));
+// note(second([1, 2, 4]));
 // note(second([1]));
-note(second('abab'));
+// note(second('abab'));

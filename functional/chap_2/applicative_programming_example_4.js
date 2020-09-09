@@ -21,7 +21,7 @@ function cat(/* [], [], [] */) {
 }
 
 /**
- * var, [] => []
+ * item, [] => []
  */
 function construct(head, tail) {
   return cat([head], _.toArray(tail));
@@ -49,14 +49,15 @@ const interPose = (inter, coll) =>
   butLast(mapCat(e => construct(e, [inter]), coll));
 
 
-console.log(
-  cat([1,2,3], [4,5], [6,7,8]),
-  construct(42, [1, 2, 3]),
-  mapCat(e => construct(e, [',']), [1, 2, 3]),
-  butLast([11, 22, 33, 44]),
-  interPose(',', [1, 2, 3])
-)
+// console.log(
+//   cat([1,2,3], [4,5], [6,7,8]),
+//   construct(42, [1, 2, 3]),
+//   mapCat(e => construct(e, [',']), [1, 2, 3]),
+//   butLast([11, 22, 33, 44]),
+//   interPose(',', [1, 2, 3])
+// )
 
 module.exports = {
   construct,
+  cat,
 };
