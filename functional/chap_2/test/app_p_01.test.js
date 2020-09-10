@@ -13,3 +13,12 @@ test('construct: item, [] => []', () => {
   const b = [2, 3];
   expect(construct(a, b)).toEqual([1, 2, 3]);
 });
+
+test('cat & construct', () => {
+  const item = 1;
+  const arr1 = [11, 12, 13];
+  const arr2 = [21, 22, 23];
+  const arr3 = [31, 32, 33];
+  expect(construct(item, arr1)).toEqual([].concat(item, arr1));
+  expect(cat(arr1, arr2, arr3)).toEqual([].concat(arr1, arr2, arr3));
+});
