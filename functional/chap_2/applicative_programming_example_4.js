@@ -23,9 +23,12 @@ function cat(/* [], [], [] */) {
 /**
  * item, [] => []
  */
-function construct(head, tail) {
-  return cat([head], _.toArray(tail));
-}
+// function construct(head, tail) {
+//   return cat([head], _.toArray(tail));
+// }
+
+const construct = (head, arr) =>
+  [head].concat(arr);
 
 /**
  * fun, [a, b, c ...] => [...([a, b, c ...].map) ]
