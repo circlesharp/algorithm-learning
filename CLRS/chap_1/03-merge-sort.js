@@ -23,11 +23,14 @@ for k = p to r
 const merge = (A, p, q, r) => {
   const n1 = q - p + 1;
   const n2 = r - q;
-  const L = new Array(n1).fill(null);
-  const R = new Array(n2).fill(null);
-  for (let i = 0; i < n1; i++) { L[i] = A[p + i] }
-  for (let j = 0; j < n2; j++) { R[j] = A[q + j + 1] }
-  console.log(L, R);
+  const L = new Array(n1 + 1).fill(null);
+  const R = new Array(n2 + 1).fill(null);
+  for (let i = 0; i < n1; i++) {
+    L[i] = A[p + i];
+  }
+  for (let j = 0; j < n2; j++) {
+    R[j] = A[q + j + 1];
+  }
   L[n1] = Infinity;
   R[n2] = Infinity;
   let i = 0;
@@ -35,12 +38,26 @@ const merge = (A, p, q, r) => {
   for (let k = p; k <= r; k++) {
     if (L[i] < R[j]) A[k] = L[i++];
     else A[k] = R[j++];
-    console.log(A[k], k)
   }
-  return A;
 }
 
-const testArr = [2, 4, 5, 7, 1, 2, 3, 6];
-console.log(
-  merge(testArr, 0, 3, 7)
-);
+/*
+MERGE-SORT(A, p, r)
+if p < r
+  let q = floor((p + r) / 2)
+  MERGE-SORT(A, p, q)
+  MERGE-SORT(A, q + 1, r)
+  MERGE(A, p, q, r)
+*/
+const mergeSort = (A, p, r) => {
+  if (p >= r) return;
+  const q = Math.floor((p + r) / 2);
+  mergeSort(A, p, q);
+  mergeSort(A, q + 1, r);
+  merge(A, p, q, r);
+}
+
+const testArr = [2, 4, 56, 100, 3, 1, 62, 10, 5, 7, 1, 2, 3, 6];
+mergeSort(testArr, 0, testArr.length - 1);
+
+console.log(testArr);
