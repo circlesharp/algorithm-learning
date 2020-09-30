@@ -42,6 +42,26 @@ const merge = (A, p, q, r) => {
 }
 
 /*
+MERGE(A, p, q, r)
+第二种写法
+*/
+// const merge = (A, p, q, r) => {
+//   const n1 = q - p + 1;
+//   const n2 = r - q;
+//   const L = new Array(n1);
+//   const R = new Array(n2);
+//   for (let i = 0; i < n1; i++) L[i] = A[p + i];
+//   for (let j = 0; j < n2; j++) R[j] = A[q + j + 1];
+//   let [i, j] = [0, 0];
+//   for (let k = p; k <= r; k++) {
+//     if (i >= n1) A[k] = R[j++];
+//     else if (j >= n2) A[k] = L[i++];
+//     else if (L[i] < R[j]) A[k] = L[i++];
+//     else A[k] = R[j++];
+//   }
+// };
+
+/*
 MERGE-SORT(A, p, r)
 if p < r
   let q = floor((p + r) / 2)
