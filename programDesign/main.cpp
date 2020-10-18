@@ -1,12 +1,11 @@
-﻿// #include<iostream>
-#include<stdio.h>
-#include<windows.h>
-#include"./02-function/09-function-02.h"
+﻿#include<iostream>
+#include"./03-operator/01-operator-01.h"
+using namespace std;
 
 int main()
 {
-	int rst = _main();
-	printf("The result is: %d\n", rst);
-	system("pause");
+	string rst = _main();
+	cout << "The source is: " << rst << endl;
+	// system("pause");
 	return 0;
 }
