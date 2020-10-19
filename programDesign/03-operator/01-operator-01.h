@@ -8,6 +8,9 @@ void test_4();
 void test_5();
 void test_6();
 void test_7();
+void test_8();
+void test_9();
+void test_a();
 
 string _main()
 {
@@ -28,6 +31,25 @@ string _main()
   test_6();
   test_7();
 
+  // 5. 表达式（强调计算、值）
+  /*
+  ::: 表达式 :::
+
+  程序中由运算符、操作数、括号等
+  所组成的计算式
+
+  是计算的基本单位
+
+  表达式是有值的，赋值语句也不例外
+  */
+  test_8();
+
+  // 6. 复合赋值运算
+  test_9();
+
+  // 7. 连续的赋值运算
+  test_a();
+  
   return "01-operator";
 }
 
@@ -92,4 +114,31 @@ void test_7()
   signed int signed_int_j = unsigned_int_i;
   cout << hex << signed_int_j << endl;
   cout << dec << signed_int_j << endl;
+}
+
+void test_8()
+{
+  int i = 0;
+  cout << (i = 10) << endl;
+  cout << (i += i) << endl;
+}
+
+void test_9()
+{
+  // 在赋值符号前面加上其它运算符号 => 复合赋值运算
+}
+
+void test_a()
+{
+  // 1. 自右向左的结合顺序
+  int a, b, c;
+  a = b = c = 5; // a = (b = (c = 5)) 因为赋值也是表达式
+
+  // 2. 错误的示范
+  int i, j, k = 5; // wrong int i = j = k = 5;
+
+  // 3. 更多自右向左例子
+  a = (b = 4) + (c = 6); // 10, 4, 6
+  a += a -= a * a; // a += (a = a - (a * a))
+  cout << a << endl; // -180
 }
