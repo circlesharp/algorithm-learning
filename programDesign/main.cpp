@@ -1,5 +1,5 @@
 ﻿#include<iostream>
-#include"./05-pointer/04-pointer-2d-array.h"
+#include"./05-pointer/05-pointer-param-2.h"
 using namespace std;
 
 int main()
