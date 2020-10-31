@@ -1,5 +1,5 @@
 ﻿#include<iostream>
-#include"./05-pointer/05-pointer-param-2.h"
+#include"./05-pointer/07-pointer-return.h"
 using namespace std;
 
 int main()
