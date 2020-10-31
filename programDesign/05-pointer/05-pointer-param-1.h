@@ -19,6 +19,12 @@ string _main()
   test_3();
 
   // 2. 指针作为返回值
+  /*
+    or:
+
+    char *strPointer = test_2();
+    cout << strPointer << endl;
+  */
   cout << test_2() << endl;
 
   // 3. 多维数组作为参数
@@ -38,7 +44,7 @@ void test_1()
   cout << a << ' ' << b << endl;
 }
 
-char* test_2()
+char *test_2()
 {
   return "指针作为返回值";
 }

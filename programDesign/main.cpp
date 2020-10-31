@@ -1,5 +1,5 @@
 ﻿#include<iostream>
-#include"./06-struct/02-struct-pointer.h"
+#include"./06-struct/04-joseph.h"
 using namespace std;
 
 int main()
