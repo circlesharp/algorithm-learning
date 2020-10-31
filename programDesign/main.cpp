@@ -1,5 +1,5 @@
 ﻿#include<iostream>
-#include"./05-pointer/07-pointer-return.h"
+#include"./06-struct/02-struct-pointer.h"
 using namespace std;
 
 int main()
