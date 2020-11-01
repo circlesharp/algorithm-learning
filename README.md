@@ -5,6 +5,8 @@
 1. imooc -> 慕课网的bobobo老师
 2. grokking -> 算法图解 Grokking Algorithms
 3. functional -> 函数式编程
+4. programDesign -> 计算概论与程序设计(c lang, 李戈老师)
+5. dataStructure -> 数据结构与算法(浙大 陈越老师)
 
 ## FileOrganization
 -------------------
@@ -18,5 +20,5 @@
 ## Appendix
 -----------
 1. [Introduction to Logarithms](https://www.mathsisfun.com/algebra/logarithms.html)
-2. [Funcitonal Programming in JavaScript in YouTube](https://www.youtube.com/playlist?list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
+2. [Functional Programming in JavaScript in YouTube](https://www.youtube.com/playlist?list=PL0zVEGEvSaeEd9hlmCXrk5yUyqUag-n84)
 3. [Closures in MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures)
