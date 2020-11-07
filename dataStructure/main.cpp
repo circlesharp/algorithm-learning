@@ -1,5 +1,5 @@
 #include<iostream>
-#include"./chap_01/01-PringN.h"
+#include"./chap_01/02-Sum_Polynome.h"
 using namespace std;
 
 int main()
