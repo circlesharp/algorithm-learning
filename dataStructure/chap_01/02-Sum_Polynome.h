@@ -2,7 +2,7 @@
 #include<math.h>
 #include<time.h>
 
-const int MAXN = 10;
+const int MAXN = 15;
 const long MAXK = 1e7;
 
 
@@ -52,6 +52,7 @@ char *_main()
   double a[MAXN];
   for (int i = 0; i < MAXN; i++)
     a[i] = (double)i;
+  printf("CLK_TCK %d \n", CLK_TCK); // 1000
   run(method_1, a, 1);
   run(method_2, a, 2);
   return "char_01, 02-Sum_Polynome";
