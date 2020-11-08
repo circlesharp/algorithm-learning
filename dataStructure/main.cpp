@@ -1,5 +1,5 @@
 #include<iostream>
-#include"./chap_01/04-Max_Subseq_Sum.h"
+#include"./chap_02/01-typedef.h"
 using namespace std;
 
 int main()
