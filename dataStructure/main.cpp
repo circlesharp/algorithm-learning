@@ -1,5 +1,5 @@
 #include<iostream>
-#include"./chap_02/01-typedef.h"
+#include"./chap_02//03-malloc.h"
 using namespace std;
 
 int main()
