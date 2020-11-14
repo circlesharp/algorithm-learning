@@ -1,5 +1,5 @@
 #include<iostream>
-#include"./chap_03/03-linear_list_1.h"
+#include"./chap_03/04-linear_list_2.h"
 using namespace std;
 
 int main()

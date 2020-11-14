@@ -18,3 +18,7 @@
   4. bool Insert(List L, ElementType X, int i): 在L的指定位序i前插入一个新元素X，成功true，失败false;
   5. bool Delete(List L, int i): 从L中删除指定位序i的元素，成功true，失败false;
   6. int Length(List L): 返回线性表L的长度;
+
+## 实现方法
+1. 线性表的顺序存储实现(顺序表, 03-linear_list_1), 物理上的相邻实现逻辑上的相邻
+2. 线性表的链式存储实现(链式表, 04-linear_list_2)，不需要移动数据，只需要修改链

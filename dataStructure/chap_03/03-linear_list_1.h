@@ -78,7 +78,7 @@ char *_main()
 
   if (Insert(list, 1, 1)) printf("Insert the first element %d in position: %d.\n",  list->Data[list->Last], list->Last);
   
-  Position positonOne = Find(list, 1);
+  Position positonOne = Find(list, 1); // 我认为这里有瑕疵，position小1
   printf("Find the value 1 in position: %d.\n", positonOne);
   
   if (Delete(list, 2)) printf("Delete position 2\n", list->Last);
