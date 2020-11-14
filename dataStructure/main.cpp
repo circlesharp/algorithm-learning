@@ -1,5 +1,5 @@
 #include<iostream>
-#include"./chap_02//03-malloc.h"
+#include"./chap_03/03-linear_list_1.h"
 using namespace std;
 
 int main()
