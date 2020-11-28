@@ -6,7 +6,7 @@ void usingSizeof()
   printf("sizeof char %d\n", sizeof(char));
   printf("sizeof bool %d\n", sizeof(bool));
   printf("sizeof short %d\n", sizeof(short));
-  printf("sizeof int %d\n", sizeof(int));
+  printf("sizeof int %d\n", sizeof(int)); // 32位下，cpu寄存器的字长为32bit，所以是 4byte; 换句话，c语言的int表达的是寄存器的大小
   printf("sizeof long %d\n", sizeof(long));
   printf("sizeof long long %d\n", sizeof(long long));
   printf("sizeof float %d\n", sizeof(float));
