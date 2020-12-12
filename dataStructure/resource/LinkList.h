@@ -1,3 +1,6 @@
+#ifndef _LINK_LIST_H_
+#define _LINK_LIST_H_
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -16,7 +19,6 @@ typedef struct {
   Node* tail;
   int length;
 } List;
-
 
 List* MakeEmpty();
 Node* FindKthNode(List* listPtr, int i);
@@ -179,3 +181,5 @@ void print(List* listPtr)
   printf("\nthe lenght: %d\n", Length(listPtr));
   printf("------ the end ------\n");
 }
+
+#endif
