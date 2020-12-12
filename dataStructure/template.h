@@ -1,9 +1,29 @@
-#include<iostream>
-using namespace std;
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
-#include<stdio.h>
+#define ERROR -1
 
-char *_main()
+typedef int ElementType;
+
+int main()
 {
-  return "char_01, 01-PrintN";
+
+  return 0;
 }
+
+
+{
+  #include<iostream>
+  using namespace std;
+
+  #include<stdio.h>
+
+  char *_main()
+  {
+    return "char_01, 01-PrintN";
+  }
+}
+
+
+
