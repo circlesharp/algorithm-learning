@@ -29,46 +29,6 @@ bool Delete(List* listPtr, int i);
 int Length(List* listPtr);
 void print(List* listPtr);
 
-int _main()
-{
-  /* MakeEmpty */
-  List* list = MakeEmpty();
-  printf("sizeof(*list): %d\n\n", sizeof(*list)); // 8 两个指针变量
-
-  /* Insert */
-  Insert(list, 1, 0);
-  Insert(list, 2, 1);
-  Insert(list, 3, 2);
-  Insert(list, 4, 3);
-  Insert(list, 5, 4);
-  Insert(list, 6, 5);
-  Insert(list, 777, 1);
-  Insert(list, 888, 4);
-
-  /* FindKth */
-  printf("FindKth(list, 2): %d\n", FindKth(list, 2));
-  printf("FindKth(list, 4): %d\n", FindKth(list, 4));
-  printf("FindKth(list, 8): %d\n\n", FindKth(list, 8));
-
-  /* Find */
-  printf("Find(list, 777): %d\n", Find(list, 777));
-  printf("Find(list, 3): %d\n", Find(list, 3));
-  printf("Find(list, 233): %d\n\n", Find(list, 233));
-
-  print(list);
-
-  /* Delete */
-  Delete(list, 0);
-  Delete(list, -1);
-  Delete(list, 8);
-  Delete(list, 3);
-  Delete(list, 3);
-  
-  print(list);
-
-  return 0;
-}
-
 List* MakeEmpty()
 {
   List* listPtr = (List*)malloc(sizeof(List));
