@@ -7,11 +7,19 @@
 
 #define MAXSIZE 6
 #define ERROR -1
+#define NoInfo 0
 
+// typedef int ElementTypeOfQueue;
 typedef int ElementType;
-
-typedef struct _QNode {
+typedef struct _BinTree {
   ElementType data;
+  struct _BinTree* left;
+  struct _BinTree* right;
+} BinTree;
+
+typedef BinTree* ElementTypeOfQueue;
+typedef struct _QNode {
+  ElementTypeOfQueue data;
   struct _QNode* next;
 } QNode;
 
@@ -25,9 +33,9 @@ typedef struct {
 Queue* CreateQueue(int maxSize);
 bool IsQueueFull(Queue* queue);
 bool IsQueueEmpty(Queue* queue);
-bool AddQ(Queue* queue, ElementType x);
-ElementType DeleteQ(Queue* queue);
-void printQueue(Queue* queue);
+bool AddQ(Queue* queue, ElementTypeOfQueue x);
+ElementTypeOfQueue DeleteQ(Queue* queue);
+// void printQueue(Queue* queue);
 
 // ==============
 
@@ -50,7 +58,7 @@ bool IsQueueEmpty(Queue* queue)
   return queue->length == 0;
 }
 
-bool AddQ(Queue* queue, ElementType x){
+bool AddQ(Queue* queue, ElementTypeOfQueue x){
   if (IsQueueFull(queue)) {
     printf("The queue is full.\n");
     return false;
@@ -74,7 +82,7 @@ bool AddQ(Queue* queue, ElementType x){
   queue->length += 1;
 }
 
-ElementType DeleteQ(Queue* queue)
+ElementTypeOfQueue DeleteQ(Queue* queue)
 {
   if (IsQueueEmpty(queue)) {
     printf("The queue is empty.\n");
@@ -87,23 +95,23 @@ ElementType DeleteQ(Queue* queue)
   queue->length -= 1;
 
   /* 处理头结点 */
-  ElementType rst = tempNode->data;
+  ElementTypeOfQueue rst = tempNode->data;
   free(tempNode);
   return rst;
 }
 
-void printQueue(Queue* queue)
-{
-  if (IsQueueEmpty(queue))
-    printf("The queue is empty.");
+// void printQueue(Queue* queue)
+// {
+//   if (IsQueueEmpty(queue))
+//     printf("The queue is empty.");
 
-  QNode* tempNode = queue->front;
-  while (tempNode) {
-    printf("%-4d", tempNode->data);
-    tempNode = tempNode->next;
-  }
+//   QNode* tempNode = queue->front;
+//   while (tempNode) {
+//     printf("%-4d", tempNode->data);
+//     tempNode = tempNode->next;
+//   }
 
-  printf("\nprint end.\n");
-}
+//   printf("\nprint end.\n");
+// }
 
 #endif
