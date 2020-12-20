@@ -27,7 +27,7 @@ int Find(List* listPtr, ElementType x);
 bool Insert(List* listPtr, ElementType x, int i);
 bool Delete(List* listPtr, int i);
 int Length(List* listPtr);
-void print(List* listPtr);
+void printList(List* listPtr);
 
 List* MakeEmpty()
 {
@@ -126,7 +126,7 @@ int Length(List* listPtr)
   return listPtr->length;
 }
 
-void print(List* listPtr)
+void printList(List* listPtr)
 {
   Node* tmpNodePtr = (Node*)malloc(sizeof(Node));
   tmpNodePtr = listPtr->head;

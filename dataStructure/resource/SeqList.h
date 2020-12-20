@@ -19,6 +19,7 @@ List* MakeEmpty();
 bool Insert(List* listPtr, ElementType x, int i);
 bool Delete(List* listPtr, int i);
 int Find(List* listPtr, ElementType x);
+void printList(List* listPtr);
 
 List* MakeEmpty()
 {
@@ -68,7 +69,7 @@ int Find(List* listPtr, ElementType x)
   return ERROR;
 }
 
-void print(List* listPtr)
+void printList(List* listPtr)
 {
   for (int i = 0; i <= listPtr->last; i++)
     printf("%-4d", listPtr->data[i]);
