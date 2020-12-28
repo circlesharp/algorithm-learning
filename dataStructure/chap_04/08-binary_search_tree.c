@@ -53,6 +53,13 @@ int main()
     InorderTraversal(binSearchTree);
   }
 
+  {
+    /* test Delete */
+    Delete(binSearchTree, 1);
+    Delete(binSearchTree, 12);
+    InorderTraversal(binSearchTree);
+  }
+
 }
 
 bool IsEmpty(BinTree* binTree)
@@ -166,15 +173,32 @@ BinTree* Insert(BinTree* bst, ElementType x)
 /* 二叉搜索树的删除 */
 BinTree* Delete(BinTree* bst, ElementType x)
 {
-  BinTree* targetTree = Find(bst, x);
-
-  /* 1 如果是叶结点 */
-  if (!targetTree->left && !targetTree->right) {
-    targetTree = NULL;
+  BinTree* tempTree;
+  if (!bst)
+    printf("Not Fount.\n");
+  else {
+    if (x < bst->data)
+      bst->left = Delete(bst->left, x);
+    else if (x > bst->data)
+      bst->right = Delete(bst->right, x);
+    /* bst 就是要删除的结点 */
+    else {
+      /* 1 有左右两个子结点 */
+      if (bst->left && bst->right) {
+        tempTree = FindMin(bst->right);
+        bst->data = tempTree->data;
+        bst->right = Delete(bst->right, bst->data);
+      }
+      /* 2 有1个或0个子结点 */
+      else {
+        tempTree = bst;
+        if (!bst->left)
+          bst = bst->right;
+        else
+          bst = bst->left;
+        free(tempTree);
+      }
+    }
   }
-
-  /* 2 如果只有一个结点 */
-  if (!targetTree->left && targetTree->right) {
-    
-  }
+  return bst;
 }
