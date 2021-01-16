@@ -1,11 +1,12 @@
 /* 实现堆 */
 
 class Heap {
-  constructor(e) {
+  constructor(e, soilder = Infinity) {
+    this.soilder = soilder;
     if (typeof e === 'number') {
       const maxSize = e;
       this.data = Array(maxSize + 1); // 数据
-      this.data[0] = Infinity; // 哨兵
+      this.data[0] = this.soilder; // 哨兵
       this.size = 0; // 当前容量
       this.capacity = maxSize; // 最大容量
     }
@@ -23,7 +24,7 @@ class Heap {
 
   insert(x) {
     if (this.isFull()) {
-      console.error('error: the MaxHeap is full.');
+      console.error('error: the Heap is full.');
       return false;
     }
 
@@ -39,7 +40,7 @@ class Heap {
 
   delete() {
     if (this.isEmpty()) {
-      console.error('error: the MaxHeap is empty.');
+      console.error('error: the Heap is empty.');
       return null;
     }
 
@@ -51,7 +52,7 @@ class Heap {
   }
 
   _buildHeap(rawData, size) {
-    this.data = [Infinity, ...rawData];
+    this.data = [this.soilder, ...rawData];
     this.size = size;
     this.capacity = size;
 
@@ -70,7 +71,7 @@ class Heap {
       child = parent * 2;
 
       /* 如果比兄弟小（有兄弟的前提当然是还没抵达边界），那么兄弟取代他 */
-      if (child < this.size && this.data[child] < this.data[child + 1])
+      if (child < this.size && this._compare(this.data[child], this.data[child + 1]))
         child++;
 
       if (this._compare(x, this.data[child]))
@@ -85,7 +86,7 @@ class Heap {
     return a < b;
   }
 
-  print() {
+  print(getData = i => i) {
     let rst = '';
     let row = 1;
     for (let i = 1; i <= this.size; i++) {
@@ -93,79 +94,89 @@ class Heap {
         row++;
         rst += '\n';
       }
-      rst += `${this.data[i]}  `;
+      rst += `${getData(this.data[i])}  `;
     }
 
-    console.log(`the size is: ${this.size}\n${rst}\n`);
+    console.log(`the size of ${this.soilder > 0 ? 'max-heap' : 'min-heap'} is: ${this.size}\n${rst}\n`);
+  }
+}
+
+class MaxHeap extends Heap {
+  constructor(e) {
+    super(e, Infinity);
   }
 }
 
 class MinHeap extends Heap {
   constructor(e) {
-    super(e);
+    super(e, -Infinity);
   }
   _compare(a, b) {
-    a > b;
+    return a > b;
   }
 }
 
+module.exports = { MinHeap, MaxHeap };
 
 // ========== 测试 ==========
 
-const test01 = () => {
-  const heap = new Heap(10);
-  for (let i = 1; i < 10; i++)
-    heap.insert(i);
+if (false) {
+  const test01 = () => {
+    const heap = new MaxHeap(10);
+    for (let i = 1; i < 10; i++)
+      heap.insert(i);
 
-  heap.print();
+    heap.print();
 
-  heap.delete();
-  heap.delete();
-  heap.delete();
-  heap.print();
-};
+    heap.delete();
+    heap.delete();
+    heap.delete();
+    heap.print();
+  };
 
-const test02 = () => {
-  const rawData = [];
-  for (let i = 1; i < 10; i++)
-    rawData.push(i);
-  const heap = new Heap(rawData);
+  const test02 = () => {
+    const rawData = [];
+    for (let i = 1; i < 10; i++)
+      rawData.push(i);
+    const heap = new MaxHeap(rawData);
 
-  heap.print();
+    heap.print();
 
-  heap.delete();
-  heap.delete();
-  heap.delete();
-  heap.print();
+    heap.delete();
+    heap.delete();
+    heap.delete();
+    heap.print();
+  }
+
+  const test03 = () => {
+    const heap = new MinHeap(10);
+    for (let i = 9; i > 0; i--)
+      heap.insert(i);
+
+    heap.print();
+
+    heap.delete();
+    heap.delete();
+    heap.delete();
+    heap.print();
+  };
+
+  const test04 = () => {
+    const rawData = [];
+    for (let i = 9; i > 0; i--)
+      rawData.push(i);
+    const heap = new MinHeap(rawData);
+
+    heap.print();
+
+    heap.delete();
+    heap.delete();
+    heap.delete();
+    heap.print();
+  }
+
+  test01();
+  test02();
+  test03();
+  test04();
 }
-const test03 = () => {
-  const heap = new MinHeap(10);
-  for (let i = 1; i < 10; i++)
-    heap.insert(i);
-
-  heap.print();
-
-  heap.delete();
-  heap.delete();
-  heap.delete();
-  heap.print();
-};
-
-const test04 = () => {
-  const rawData = [];
-  for (let i = 1; i < 10; i++)
-    rawData.push(i);
-  const heap = new MinHeap(rawData);
-
-  heap.print();
-
-  heap.delete();
-  heap.delete();
-  heap.delete();
-  heap.print();
-}
-
-// test01();
-// test02();
-// test03();
-test04();
