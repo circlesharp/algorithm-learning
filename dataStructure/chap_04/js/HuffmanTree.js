@@ -1,4 +1,4 @@
-const { MinHeap } = require('./heap');
+const { MinHeap } = require('./Heap');
 
 /* 哈夫曼化最小堆：依据 weight 字段的最小堆 */
 class HuffmanifyMinHeap extends MinHeap {
