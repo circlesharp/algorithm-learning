@@ -1,4 +1,4 @@
-interface LinearList<T> {
+interface LinearListSeq<T> {
   maxSize?: number;
   data: Array<T>;
   last: number;
@@ -7,7 +7,7 @@ interface LinearList<T> {
   find: (element: T) => number;
 }
 
-export class ListSeq<T> implements LinearList<T> {
+class ListSeq<T> implements LinearListSeq<T> {
   data = [];
   last = -1;
   maxSize;

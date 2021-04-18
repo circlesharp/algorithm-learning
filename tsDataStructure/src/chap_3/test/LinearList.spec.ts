@@ -1,7 +1,8 @@
-import { genRandomIntArray } from "../utils/testTools";
-import ListSeq from "./LinearList";
+import { genRandomIntArray } from "../../utils/testTools";
+import ListLink from "../LinearListLink";
+import ListSeq from "../LinearListSeq";
 
-describe('线性结构-顺序表', ()=>{
+describe('线性结构-顺序表', () => {
   it('初始化', () => {
     const randomArr = genRandomIntArray(10);
     const listSeq = new ListSeq(randomArr);
@@ -65,6 +66,19 @@ describe('线性结构-顺序表', ()=>{
     const listSeq_2 = new ListSeq(sameArr);
     for (let i = 0; i <= listSeq_2.last; i++) {
       expect(listSeq_2.find(sameElement)).toEqual(0);
+    }
+  });
+});
+
+describe('线性结构-链表', () => {
+  it('初始化', () => {
+    const listLength = 10;
+    const randomArr = genRandomIntArray(listLength);
+    const listLink = new ListLink(randomArr);
+    let listNode = listLink.head;
+
+    for (let i = 0; i < listLength; i++, listNode = listNode.next) {
+      expect(listNode.data).toEqual(randomArr[i]);
     }
   });
 });
