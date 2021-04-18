@@ -41,7 +41,30 @@ describe('线性结构-顺序表', ()=>{
     const listSeq = new ListSeq(randomArr);
 
     expect(listSeq.delete(10)).toEqual(false);
+    expect(listSeq.delete(-1)).toEqual(false);
     expect(listSeq.delete(9)).toEqual(true);
     expect(listSeq.data[listSeq.last]).toEqual(randomArr[randomArr.length - 2]);
+
+    const listSeq_2 = new ListSeq(randomArr);
+    for (let i = 0; i < 10; i++) {
+      expect(listSeq_2.delete(0)).toEqual(true);
+      expect(listSeq_2.last).toEqual(8 - i);
+    }
+  });
+
+  it('查找元素', () => {
+    const randomArr = [1, 22, 33, 44, 5, 6];
+    const listSeq = new ListSeq(randomArr);
+
+    for (let i = 0; i <= listSeq.last; i++) {
+      expect(listSeq.find(randomArr[i])).toEqual(i);
+    }
+    
+    const sameElement = 22;
+    const sameArr = Array(10).fill(sameElement);
+    const listSeq_2 = new ListSeq(sameArr);
+    for (let i = 0; i <= listSeq_2.last; i++) {
+      expect(listSeq_2.find(sameElement)).toEqual(0);
+    }
   });
 });
