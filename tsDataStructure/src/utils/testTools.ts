@@ -1,5 +1,5 @@
 export function genRandomIntArray(size: number = 10, randomItemGenarator?): Array<number> {
-  const arr = Array(size);
+  const arr = [];
   let element;
 
   for (let i = 0; i < size; i++) {

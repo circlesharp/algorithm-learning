@@ -13,8 +13,10 @@ export class ListSeq<T> implements LinearList<T> {
   maxSize;
 
   constructor(data: Array<T>, maxSize = 20) {
-    this.data = data;
-    this.last = data.length - 1;
+    for (let i = 0; i < Math.min(maxSize, data.length); i++) {
+      this.data[i] = data[i];
+    }
+    this.last = this.data.length - 1;
     this.maxSize = maxSize;
   }
 
@@ -22,7 +24,7 @@ export class ListSeq<T> implements LinearList<T> {
     if (idx > this.maxSize - 1) {
       return false;
     }
-    if (idx < 0 || idx > this.last + 2) {
+    if (idx < 0 || idx >= this.last + 2) {
       return false;
     }
 
