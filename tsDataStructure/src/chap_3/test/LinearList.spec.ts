@@ -1,4 +1,4 @@
-import { genRandomIntArray } from "../../utils/testTools";
+import { genOrderedIntArray, genRandomIntArray } from "../../utils/testTools";
 import ListLink from "../LinearListLink";
 import ListSeq from "../LinearListSeq";
 
@@ -19,7 +19,7 @@ describe('线性结构-顺序表', () => {
     expect(listSeqOverSize.last).toEqual(maxSize - 1);
   });
 
-  it('插入元素', () =>{
+  it('插入元素', () => {
     const maxSize = 15;
     const element = 233;
     const randomArr = genRandomIntArray(10);
@@ -60,7 +60,7 @@ describe('线性结构-顺序表', () => {
     for (let i = 0; i <= listSeq.last; i++) {
       expect(listSeq.find(randomArr[i])).toEqual(i);
     }
-    
+
     const sameElement = 22;
     const sameArr = Array(10).fill(sameElement);
     const listSeq_2 = new ListSeq(sameArr);
@@ -72,6 +72,7 @@ describe('线性结构-顺序表', () => {
 
 describe('线性结构-链表', () => {
   it('初始化', () => {
+    // 非空
     const listLength = 10;
     const randomArr = genRandomIntArray(listLength);
     const listLink = new ListLink(randomArr);
@@ -80,5 +81,49 @@ describe('线性结构-链表', () => {
     for (let i = 0; i < listLength; i++, listNode = listNode.next) {
       expect(listNode.data).toEqual(randomArr[i]);
     }
+    expect(listLink.tail.next).toEqual(null);
+
+    // 空
+    const listLinkEmpty = new ListLink();
+    expect(listLinkEmpty.head).toEqual(null);
+    expect(listLinkEmpty.tail).toEqual(null);
+    expect(listLinkEmpty.length).toEqual(0);
+  });
+  it('插入元素', () => {
+    const element = 233;
+    // 空链表插入
+    const listLinkEmpty = new ListLink();
+    expect(listLinkEmpty.insert(element, -1)).toEqual(false);
+    expect(listLinkEmpty.insert(element, 1)).toEqual(false);
+    expect(listLinkEmpty.insert(element, 0)).toEqual(true);
+    expect(listLinkEmpty.length).toEqual(1);
+    expect(listLinkEmpty.tail.data).toEqual(element);
+
+    // 非空链表插入
+    const listLength = 10;
+    const orderedArr = genOrderedIntArray(listLength);
+    const listLink = new ListLink(orderedArr);
+    expect(listLink.insert(element, -1)).toEqual(false);
+    expect(listLink.insert(element, listLength + 1)).toEqual(false);
+    expect(listLink.insert(element, listLength)).toEqual(true);
+    expect(listLink.insert(element, 0)).toEqual(true);
+
+    expect(listLink.length).toEqual(listLength + 2);
+    expect(listLink.head.data).toEqual(element);
+    expect(listLink.tail.data).toEqual(element);
+    expect(listLink.findKthNode(0).data).toEqual(element);
+    expect(listLink.findKthNode(1).data).toEqual(orderedArr[0]);
+    expect(listLink.findKthNode(listLength).data).toEqual(orderedArr[listLength - 1]);
+    expect(listLink.findKthNode(listLength + 1).data).toEqual(element);
+  });
+  it('遍历 转数组', () => {
+    const listLinkEmpty = new ListLink();
+    expect(listLinkEmpty.toArray()).toEqual([]);
+
+    const listLength = 10;
+    const orderedArr = genOrderedIntArray(listLength);
+    const listLink = new ListLink(orderedArr);
+    expect(listLink.toArray()).toEqual(orderedArr);
+
   });
 });

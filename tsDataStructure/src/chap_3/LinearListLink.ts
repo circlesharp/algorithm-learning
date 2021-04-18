@@ -12,6 +12,7 @@ interface LinearListLink<T> {
   find: (element: T) => number;
   findKth: (position: number) => T;
   findKthNode: (position: number) => ListNode<T> | null;
+  toArray: () => Array<T>;
 }
 
 class ListLink<T> implements LinearListLink<T> {
@@ -19,22 +20,29 @@ class ListLink<T> implements LinearListLink<T> {
   tail: ListNode<T> | null = null;
   length = 0;
 
-  constructor(data: Array<T>) {
+  constructor(data: Array<T> = []) {
     for (let i = 0; i < data.length; i++) {
       this.insert(data[i], i);
     }
+
   }
 
   insert = (element, position) => {
     const node: ListNode<T> = {
       data: element,
       next: null,
-    }
+    };
 
-    if (this.head === null) {
-      /* 空链表 */
-      this.head = node;
-      this.tail = node;
+    if (position === 0) {
+      if (this.head === null) {
+        /* 空链表 */
+        this.head = node;
+      } else {
+        /* 非空 */
+        node.next = this.head;
+        this.head = node;
+      }
+
     } else {
       const preNode = this.findKthNode(position - 1);
       if (!preNode) {
@@ -44,9 +52,12 @@ class ListLink<T> implements LinearListLink<T> {
       preNode.next = node;
     }
 
+    if (position === this.length) {
+      this.tail = node;
+    }
     this.length += 1;
     return true;
-  }
+  };
 
   delete = (position) => {
     if (position >= this.length || position < 0) {
@@ -66,15 +77,15 @@ class ListLink<T> implements LinearListLink<T> {
     }
 
     return true;
-  }
+  };
   find = (element): number => {
     return 1;
-  }
+  };
   findKth = (element): T => {
     return this.head.data;
-  }
+  };
   findKthNode = (position): ListNode<T> | null => {
-    if (position >= this.length) {
+    if (position >= this.length || position < 0) {
       return null;
     }
 
@@ -86,7 +97,23 @@ class ListLink<T> implements LinearListLink<T> {
     }
 
     return node;
-  }
+  };
+  toArray = () => {
+    const arr = [];
+    let node = this.head;
+
+    if (this.length === 0) {
+      return arr;
+    }
+
+    while (node.next) {
+      arr.push(node.data);
+      node = node.next;
+    }
+    arr.push(node.data);
+
+    return arr;
+  };
 }
 
 export default ListLink;

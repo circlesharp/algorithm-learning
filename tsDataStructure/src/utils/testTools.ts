@@ -15,6 +15,10 @@ export function genRandomIntArray(size: number = 10, randomItemGenarator?): Arra
   return arr;
 }
 
+export function genOrderedIntArray(size: number = 10): Array<number> {
+  return Array(size).fill(null).map((_, i) => i);
+}
+
 function randomInt(rangeL: number, rangeR: number): number {
   return rangeL + Math.floor((rangeR - rangeL + 1) * Math.random());
 }
