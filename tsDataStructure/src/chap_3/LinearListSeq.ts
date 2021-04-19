@@ -5,6 +5,8 @@ interface LinearListSeq<T> {
   insert: (element: T, position: number) => boolean;
   delete: (position: number) => boolean;
   find: (element: T) => number;
+  findKth: (position: number) => T | undefined;
+  toArray: () => Array<T>;
 }
 
 class ListSeq<T> implements LinearListSeq<T> {
@@ -12,7 +14,7 @@ class ListSeq<T> implements LinearListSeq<T> {
   last = -1;
   maxSize;
 
-  constructor(data: Array<T>, maxSize = 20) {
+  constructor(data: Array<T> = [], maxSize = 20) {
     for (let i = 0; i < Math.min(maxSize, data.length); i++) {
       this.data[i] = data[i];
     }
@@ -20,7 +22,7 @@ class ListSeq<T> implements LinearListSeq<T> {
     this.maxSize = maxSize;
   }
 
-  insert = (element, idx) =>{
+  insert = (element, idx) => {
     if (idx > this.maxSize - 1) {
       return false;
     }
@@ -52,7 +54,7 @@ class ListSeq<T> implements LinearListSeq<T> {
     return true;
   }
 
-  find = (element) =>{
+  find = (element) => {
     for (let i = 0; i <= this.last; i++) {
       if (this.data[i] === element) {
         return i;
@@ -60,6 +62,17 @@ class ListSeq<T> implements LinearListSeq<T> {
     }
 
     return -1;
+  }
+
+  findKth = (position) => {
+    if (position < 0 || position > this.last) {
+      return undefined;
+    }
+    return this.data[position];
+  }
+
+  toArray = () => {
+    return Array.from(this.data);
   }
 }
 

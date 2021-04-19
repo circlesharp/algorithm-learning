@@ -19,15 +19,25 @@ describe('线性结构-顺序表', () => {
     expect(listSeqOverSize.last).toEqual(maxSize - 1);
   });
 
-  it('插入元素', () => {
+  it('遍历 转数组', () => {
+    const listSeqEmpty = new ListSeq();
+    expect(listSeqEmpty.toArray()).toEqual([]);
+
+    const listLength = 10;
+    const orderedArr = genOrderedIntArray(listLength);
+    const listSeq = new ListSeq(orderedArr);
+    expect(listSeq.toArray()).toEqual(orderedArr);
+  });
+
+  it('插入元素 (insert & findKth)', () => {
     const maxSize = 15;
     const element = 233;
     const randomArr = genRandomIntArray(10);
     const listSeq = new ListSeq(randomArr, maxSize);
 
     expect(listSeq.insert(element, 7)).toEqual(true);
-    expect(listSeq.data[7]).toEqual(element);
-    expect(listSeq.data[8]).toEqual(randomArr[7]);
+    expect(listSeq.findKth(7)).toEqual(element);
+    expect(listSeq.findKth(8)).toEqual(randomArr[7]);
 
     expect(listSeq.insert(element, -1)).toEqual(false);
     expect(listSeq.last).toEqual(randomArr.length);
@@ -71,7 +81,7 @@ describe('线性结构-顺序表', () => {
 });
 
 describe('线性结构-链表', () => {
-  it('初始化', () => {
+  it('初始化 (new & findKthNode)', () => {
     // 非空
     const listLength = 10;
     const randomArr = genRandomIntArray(listLength);
@@ -124,6 +134,53 @@ describe('线性结构-链表', () => {
     const orderedArr = genOrderedIntArray(listLength);
     const listLink = new ListLink(orderedArr);
     expect(listLink.toArray()).toEqual(orderedArr);
+  });
+  it('插入元素 (insert & findKth)', () => {
+    const element = 233;
+    const randomArr = genRandomIntArray(10);
+    const listLink = new ListLink(randomArr);
 
+    expect(listLink.insert(element, 7)).toEqual(true);
+    expect(listLink.findKth(7)).toEqual(element);
+    expect(listLink.findKth(8)).toEqual(randomArr[7]);
+
+    expect(listLink.insert(element, -1)).toEqual(false);
+    expect(listLink.length - 1).toEqual(randomArr.length);
+    expect(listLink.insert(element, listLink.length)).toEqual(true);
+    expect(listLink.length).toEqual(10 + 1 + 1);
+    expect(listLink.insert(element, listLink.length + 1)).toEqual(false);
+  });
+
+  it('删除元素 (find)', () => {
+    const length = 10;
+    const randomArr = genRandomIntArray(length);
+    const listLink = new ListLink(randomArr);
+
+    expect(listLink.delete(10)).toEqual(false);
+    expect(listLink.delete(-1)).toEqual(false);
+    expect(listLink.delete(9)).toEqual(true);
+    expect(listLink.findKth([listLink.length - 1])).toEqual(randomArr[length - 2]);
+
+    const listSeq_2 = new ListLink(randomArr);
+    for (let i = 0; i < 10; i++) {
+      expect(listSeq_2.delete(0)).toEqual(true);
+      expect(listSeq_2.length).toEqual(9 - i);
+    }
+  });
+
+  it('查找元素', () => {
+    const randomArr = [1, 22, 33, 44, 5, 6];
+    const listLink = new ListLink(randomArr);
+
+    for (let i = 0; i < listLink.length; i++) {
+      expect(listLink.find(randomArr[i])).toEqual(i);
+    }
+
+    const sameElement = 22;
+    const sameArr = Array(10).fill(sameElement);
+    const listSeq_2 = new ListLink(sameArr);
+    for (let i = 0; i < listSeq_2.length; i++) {
+      expect(listSeq_2.find(sameElement)).toEqual(0);
+    }
   });
 });

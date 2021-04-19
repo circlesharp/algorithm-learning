@@ -10,7 +10,7 @@ interface LinearListLink<T> {
   insert: (element: T, position: number) => boolean;
   delete: (position: number) => boolean;
   find: (element: T) => number;
-  findKth: (position: number) => T;
+  findKth: (position: number) => T | undefined;
   findKthNode: (position: number) => ListNode<T> | null;
   toArray: () => Array<T>;
 }
@@ -76,13 +76,29 @@ class ListLink<T> implements LinearListLink<T> {
       preNode.next = tmpNode.next;
     }
 
+    this.length -= 1;
     return true;
   };
-  find = (element): number => {
-    return 1;
+  find = (element: T): number => {
+    let tmpNode = this.head;
+    let idx = 0;
+
+    while (tmpNode) {
+      if (tmpNode.data === element) {
+        return idx;
+      }
+      tmpNode = tmpNode.next;
+      idx += 1;
+    }
+
+    return -1;
   };
-  findKth = (element): T => {
-    return this.head.data;
+  findKth = (position): T => {
+    const kthNode = this.findKthNode(position);
+    if (!kthNode) {
+      return undefined;
+    }
+    return kthNode.data;
   };
   findKthNode = (position): ListNode<T> | null => {
     if (position >= this.length || position < 0) {
