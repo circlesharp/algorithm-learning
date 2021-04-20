@@ -32,6 +32,11 @@ class StackSeq<T> implements Stack<T> {
   }
 
   push = (element) => {
+    if (this.isFull()) {
+      throw Error('The stack is full.')
+    }
+    this.top += 1;
+    this.data.insert(element, this.top);
     return true;
   }
 
