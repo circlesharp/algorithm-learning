@@ -12,7 +12,7 @@ interface Stack<T> {
   toArray: () => Array<T>;
 }
 
-class StackSeq<T> implements Stack<T> {
+export class StackSeq<T> implements Stack<T> {
   data: ListSeq<T>;
   top = -1;
   maxSize;
@@ -25,26 +25,33 @@ class StackSeq<T> implements Stack<T> {
 
   isFull = () => {
     return this.top === this.maxSize - 1;
-  }
+  };
 
   isEmpty = () => {
     return this.top === -1;
-  }
+  };
 
   push = (element) => {
     if (this.isFull()) {
-      throw Error('The stack is full.')
+      throw Error('The stack is full.');
     }
     this.top += 1;
     this.data.insert(element, this.top);
     return true;
-  }
+  };
 
   pop = () => {
-    return {} as T;
-  }
+    if (this.isEmpty()) {
+      throw Error('The stack is empty.');
+    }
+
+    const popData = this.data.findKth(this.top);
+    this.data.delete(this.top);
+    this.top -= 1;
+    return popData;
+  };
 
   toArray = () => {
     return this.data.toArray();
-  }
+  };
 }
