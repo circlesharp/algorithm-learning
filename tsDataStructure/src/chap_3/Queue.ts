@@ -25,7 +25,7 @@ export class QueueSeq<T> implements Queue<T> {
 	}
 
 	/* 顺序表的真实容量, 不需要对外暴露 */
-	get _realCapicity(): number {
+	get _realCapacity(): number {
 		return this.maxSize + 1;
 	}
 
@@ -35,11 +35,11 @@ export class QueueSeq<T> implements Queue<T> {
 			? 0
 			: this.front < this.rear
 				? this.rear - this.front
-				: this._realCapicity + this.rear - this.front;
+				: this._realCapacity + this.rear - this.front;
 	}
 
 	isFull: () => boolean = () => {
-		return this.front === (this.rear + 1) % this._realCapicity;
+		return this.front === (this.rear + 1) % this._realCapacity;
 	};
 
 	isEmpty: () => boolean = () => {
@@ -51,9 +51,9 @@ export class QueueSeq<T> implements Queue<T> {
 			throw Error('The queue is full.');
 		}
 
-		/* 不能使用 liskSeq.insert */
+		/* 不能使用 listSeq.insert */
 		this.data[this.rear] = element;
-		this.rear = (this.rear + 1) % this._realCapicity;
+		this.rear = (this.rear + 1) % this._realCapacity;
 		return true;
 	};
 
@@ -63,7 +63,7 @@ export class QueueSeq<T> implements Queue<T> {
 		}
 
 		const value = this.data[this.front];
-		this.front = (this.front + 1) % this._realCapicity;
+		this.front = (this.front + 1) % this._realCapacity;
 
 		return value;
 	};
@@ -72,7 +72,7 @@ export class QueueSeq<T> implements Queue<T> {
 		let arr = [];
 
 		for (let i = 0; i < this.length; i++) {
-			arr.push(this.data[(this.front + i) % this._realCapicity]);
+			arr.push(this.data[(this.front + i) % this._realCapacity]);
 		}
 
 		return arr;
