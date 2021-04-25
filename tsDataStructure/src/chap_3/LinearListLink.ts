@@ -15,7 +15,7 @@ interface LinearListLink<T> {
   toArray: () => Array<T>;
 }
 
-class ListLink<T> implements LinearListLink<T> {
+export class ListLink<T> implements LinearListLink<T> {
   head: ListNode<T> | null = null;
   tail: ListNode<T> | null = null;
   length = 0;
@@ -24,7 +24,6 @@ class ListLink<T> implements LinearListLink<T> {
     for (let i = 0; i < data.length; i++) {
       this.insert(data[i], i);
     }
-
   }
 
   insert = (element, position) => {
