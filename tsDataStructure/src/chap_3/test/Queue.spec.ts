@@ -134,6 +134,22 @@ describe('链队列', () => {
 		expect(queue.addQ.bind(queue, 244)).toThrow(/full/);
 	});
 
+	it('addQ from empty', () => {
+		const queueEmpty = new QueueLink([], 100);
+
+		expect(queueEmpty.front).toEqual(null);
+		expect(queueEmpty.rear).toEqual(null);
+		expect(queueEmpty.length).toEqual(0);
+		expect(queueEmpty.maxSize).toEqual(100);
+		expect(queueEmpty.addQ(1)).toEqual(true);
+
+		for (let i = 2; i <= 10; i++) {
+			expect(queueEmpty.addQ(i)).toEqual(true);
+		}
+
+		expect(queueEmpty.toArray()).toEqual(genOrderedIntArray(10, 1));
+	});
+
 	it('deleteQ', () => {
 		const size = 10;
 		const arr = genOrderedIntArray(size);

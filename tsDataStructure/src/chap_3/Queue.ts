@@ -16,7 +16,7 @@ type Queue<T> = {
 export class QueueLink<T> implements Queue<T> {
 	front: ListNode<T>;
 	rear: ListNode<T>;
-	length: number;
+	length: number = 0;
 	maxSize: number;
 
 	constructor(data: Array<T> = [], maxSize = 20) {
@@ -44,8 +44,14 @@ export class QueueLink<T> implements Queue<T> {
 			data: element,
 			next: null,
 		};
-		this.rear.next = tmpNode;
-		this.rear = tmpNode;
+
+		if (this.isEmpty()) {
+			this.front = tmpNode;
+			this.rear = tmpNode;
+		} else {
+			this.rear.next = tmpNode;
+			this.rear = tmpNode;
+		}
 		this.length += 1;
 
 		return true;
