@@ -67,6 +67,50 @@ describe('Binary Tree Link', () => {
 
     expect(BinaryTreeLink.PostOrderTraversal(bTree.root.right.right.right)).toEqual([15]);
   });
+
+  it('中序遍历 迭代实现', () => {
+    expect(BinaryTreeLink.InOrderTraversal(bTree.root, false))
+      .toEqual(BinaryTreeLink.InOrderTraversal(bTree.root));
+    expect(BinaryTreeLink.InOrderTraversal(bTree.root, false))
+      .toEqual(BinaryTreeLink.InOrderTraversal(bTree.root));
+    expect(bTree.traversal('inOrder', false))
+      .toEqual(bTree.traversal('inOrder'));
+
+    expect(BinaryTreeLink.InOrderTraversal(bTree.root.right, false))
+      .toEqual(BinaryTreeLink.InOrderTraversal(bTree.root.right));
+
+    expect(bTreeEmpty.traversal('inOrder', false))
+      .toEqual(bTreeEmpty.traversal('inOrder'));
+
+    expect(BinaryTreeLink.InOrderTraversal(bTree.root.right.right.right, false))
+      .toEqual(BinaryTreeLink.InOrderTraversal(bTree.root.right.right.right));
+  });
+  it('先序遍历 迭代实现', () => {
+    expect(BinaryTreeLink.PreOrderTraversal(bTree.root, false))
+      .toEqual(BinaryTreeLink.PreOrderTraversal(bTree.root));
+
+    expect(bTree.traversal('preOrder', false))
+      .toEqual(bTree.traversal('preOrder'));
+
+    expect(bTreeEmpty.traversal('preOrder', false))
+      .toEqual(bTreeEmpty.traversal('preOrder'));
+
+    expect(BinaryTreeLink.PreOrderTraversal(bTree.root.right.right.right, false))
+      .toEqual(BinaryTreeLink.PreOrderTraversal(bTree.root.right.right.right));
+  });
+  it('后序遍历 PostOrderTraversal', () => {
+    expect(BinaryTreeLink.PostOrderTraversal(bTree.root, false))
+      .toEqual(BinaryTreeLink.PostOrderTraversal(bTree.root));
+
+    expect(bTree.traversal('postOrder', false))
+      .toEqual(bTree.traversal('postOrder'));
+
+    expect(bTreeEmpty.traversal('postOrder', false))
+      .toEqual(bTreeEmpty.traversal('postOrder'));
+
+    expect(BinaryTreeLink.PostOrderTraversal(bTree.root.right.right.right, false))
+      .toEqual(BinaryTreeLink.PostOrderTraversal(bTree.root.right.right.right));
+  });
 });
 
 describe('Binary Tree Seq', () => {

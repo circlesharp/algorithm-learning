@@ -1,4 +1,5 @@
 import { QueueLink } from '../chap_3/Queue';
+import { StackLink } from '../chap_3/Stack';
 
 // ================ type: 定义 node ================
 type BTreeNodeSeq<T> = {
@@ -19,6 +20,7 @@ class BTreeNodeLink<T> {
 type BTreeNode<T> = BTreeNodeSeq<T> | BTreeNodeLink<T>;
 
 type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
+type traversalVisitor<T> = (node: BTreeNodeLink<T>) => void;
 
 // ================ type: 定义 tree ================
 interface BTreeSeq<T> {
@@ -140,14 +142,14 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
     return !root;
   }
 
-  traversal = (type: traversalType = 'inOrder') => {
+  traversal = (type: traversalType = 'inOrder', recursive = true) => {
     switch (type) {
       case 'inOrder':
-        return BinaryTreeLink.InOrderTraversal(this.root);
+        return BinaryTreeLink.InOrderTraversal(this.root, recursive);
       case 'preOrder':
-        return BinaryTreeLink.PreOrderTraversal(this.root);
+        return BinaryTreeLink.PreOrderTraversal(this.root, recursive);
       case 'postOrder':
-        return BinaryTreeLink.PostOrderTraversal(this.root);
+        return BinaryTreeLink.PostOrderTraversal(this.root, recursive);
       case 'levelOrder':
         return BinaryTreeLink.LevelOrderTraversal(this.root);
       default:
@@ -155,19 +157,32 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
     }
   };
 
-  static InOrderTraversal<T>(root: BTreeNodeLink<T>): Array<T> {
+  static InOrderTraversal<T>(root: BTreeNodeLink<T>, recursive = true): Array<T> {
     const rst: Array<T> = [];
-    BinaryTreeLink._inOrderTraversal(root, rst);
+    if (recursive) {
+      BinaryTreeLink._inOrderTraversal(root, node => { rst.push(node.data); });
+    } else {
+      BinaryTreeLink._iterativeInOrderTraversal(root, node => { rst.push(node.data); });
+    }
     return rst;
   }
-  static PreOrderTraversal<T>(root: BTreeNodeLink<T>): Array<T> {
+  static PreOrderTraversal<T>(root: BTreeNodeLink<T>, recursive = true): Array<T> {
     const rst: Array<T> = [];
-    BinaryTreeLink._preOrderTraversal(root, rst);
+
+    if (recursive) {
+      BinaryTreeLink._preOrderTraversal(root, node => { rst.push(node.data); });
+    } else {
+      BinaryTreeLink._iterativePreOrderTraversal(root, node => { rst.push(node.data); });
+    }
     return rst;
   }
-  static PostOrderTraversal<T>(root: BTreeNodeLink<T>): Array<T> {
+  static PostOrderTraversal<T>(root: BTreeNodeLink<T>, recursive = true): Array<T> {
     const rst: Array<T> = [];
-    BinaryTreeLink._postOrderTraversal(root, rst);
+    if (recursive) {
+      BinaryTreeLink._postOrderTraversal(root, node => { rst.push(node.data); });
+    } else {
+      BinaryTreeLink._iterativePostOrderTraversal(root, node => { rst.push(node.data); });
+    }
     return rst;
   }
   static LevelOrderTraversal<T>(root: BTreeNodeLink<T>): Array<T> {
@@ -194,28 +209,95 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
     return rst.map(node => node.data);
   }
 
-  /* 中序遍历 VLR */
-  static _inOrderTraversal<T>(root: BTreeNodeLink<T>, rst: Array<T>) {
+  /* 递归_中序遍历 VLR */
+  static _inOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
     if (root) {
-      BinaryTreeLink._inOrderTraversal(root.left, rst);
-      rst.push(root.data);
-      BinaryTreeLink._inOrderTraversal(root.right, rst);
+      BinaryTreeLink._inOrderTraversal(root.left, visit);
+      visit(root);
+      BinaryTreeLink._inOrderTraversal(root.right, visit);
     }
   }
-  /* 先序遍历 LVR */
-  static _preOrderTraversal<T>(root: BTreeNodeLink<T>, rst: Array<T>) {
+  /* 递归_先序遍历 LVR */
+  static _preOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
     if (root) {
-      rst.push(root.data);
-      BinaryTreeLink._preOrderTraversal(root.left, rst);
-      BinaryTreeLink._preOrderTraversal(root.right, rst);
+      visit(root);
+      BinaryTreeLink._preOrderTraversal(root.left, visit);
+      BinaryTreeLink._preOrderTraversal(root.right, visit);
     }
   }
-  /* 后序遍历 LRV */
-  static _postOrderTraversal<T>(root: BTreeNodeLink<T>, rst: Array<T>) {
+  /* 递归_后序遍历 LRV */
+  static _postOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
     if (root) {
-      BinaryTreeLink._postOrderTraversal(root.left, rst);
-      BinaryTreeLink._postOrderTraversal(root.right, rst);
-      rst.push(root.data);
+      BinaryTreeLink._postOrderTraversal(root.left, visit);
+      BinaryTreeLink._postOrderTraversal(root.right, visit);
+      visit(root);
+    }
+  }
+
+  /* 迭代_中序遍历 VLR */
+  static _iterativeInOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
+    if (!root) {
+      return;
+    }
+
+    const stack = new StackLink([], 100);
+    let tmpNode = root;
+    while (!stack.isEmpty() || tmpNode) {
+      if (tmpNode) {
+        stack.push(tmpNode);
+        tmpNode = tmpNode.left;
+      } else {
+        tmpNode = stack.pop();
+        visit(tmpNode);
+        tmpNode = tmpNode.right;
+      }
+    }
+  }
+  /* 迭代_先序遍历 LVR */
+  static _iterativePreOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
+    if (!root) {
+      return;
+    }
+
+    const stack = new StackLink([root], 100);
+    let tmpNode = root;
+
+    while (!stack.isEmpty()) {
+      tmpNode = stack.pop();
+      visit(tmpNode);
+      if (tmpNode.right) {
+        stack.push(tmpNode.right);
+      }
+      if (tmpNode.left) {
+        stack.push(tmpNode.left);
+      }
+    }
+  }
+  /* 迭代_后序遍历 LRV */
+  static _iterativePostOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
+    if (!root) {
+      return;
+    }
+
+    const stack = new StackLink<BTreeNodeLink<T>>([root], 100);
+    const outputStack = new StackLink<BTreeNodeLink<T>>([], 100);
+    let tmpNode = root;
+
+    while (!stack.isEmpty()) {
+      tmpNode = stack.pop();
+      outputStack.push(tmpNode);
+
+      if (tmpNode.left) {
+        stack.push(tmpNode.left);
+      }
+
+      if (tmpNode.right) {
+        stack.push(tmpNode.right);
+      }
+    }
+
+    while (!outputStack.isEmpty()) {
+      visit(outputStack.pop());
     }
   }
 }
