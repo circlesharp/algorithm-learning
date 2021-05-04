@@ -37,6 +37,7 @@ interface BTreeLink<T> {
   root: BTreeNodeLink<T>;
   isEmpty: () => boolean;
   traversal: (type: traversalType) => void;
+  getHeight: () => number;
 }
 
 // ================ code 二叉树 顺序表实现 ================
@@ -155,6 +156,10 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
       default:
         return [];
     }
+  };
+
+  getHeight = () => {
+    return BinaryTreeLink.GetHeight(this.root);
   };
 
   static InOrderTraversal<T>(root: BTreeNodeLink<T>, recursive = true): Array<T> {
@@ -299,5 +304,16 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
     while (!outputStack.isEmpty()) {
       visit(outputStack.pop());
     }
+  }
+
+  static GetHeight<T>(root: BTreeNodeLink<T>): number {
+    if (!root) {
+      return 0;
+    }
+
+    const heightLeft = BinaryTreeLink.GetHeight(root.left);
+    const heightRight = BinaryTreeLink.GetHeight(root.right);
+
+    return Math.max(heightLeft, heightRight) + 1;
   }
 }

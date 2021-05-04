@@ -111,6 +111,11 @@ describe('Binary Tree Link', () => {
     expect(BinaryTreeLink.PostOrderTraversal(bTree.root.right.right.right, false))
       .toEqual(BinaryTreeLink.PostOrderTraversal(bTree.root.right.right.right));
   });
+
+  it('二叉树的高度', () => {
+    expect(bTree.getHeight()).toEqual(5);
+    expect(bTreeEmpty.getHeight()).toEqual(0);
+  });
 });
 
 describe('Binary Tree Seq', () => {
