@@ -7,7 +7,7 @@ type BTreeNodeSeq<T> = {
   idx: number;
 };
 
-class BTreeNodeLink<T> {
+export class BTreeNodeLink<T> {
   data: T;
   left: BTreeNodeLink<T> = null;
   right: BTreeNodeLink<T> = null;
@@ -317,3 +317,5 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
     return Math.max(heightLeft, heightRight) + 1;
   }
 }
+
+export default BinaryTreeLink;
