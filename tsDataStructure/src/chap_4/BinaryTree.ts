@@ -19,7 +19,7 @@ export class BTreeNodeLink<T> {
 
 type BTreeNode<T> = BTreeNodeSeq<T> | BTreeNodeLink<T>;
 
-type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
+export type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
 type traversalVisitor<T> = (node: BTreeNodeLink<T>) => void;
 
 // ================ type: 定义 tree ================

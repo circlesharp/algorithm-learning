@@ -1,15 +1,14 @@
-import BinaryTree, { BTreeNodeLink as BTreeNode } from './BinaryTree';
-
-type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
+import BinaryTree, { BTreeNodeLink as BTreeNode, traversalType } from './BinaryTree';
 
 interface BST<T> {
 	root: BTreeNode<T>;
 	isEmpty: () => boolean;
 	traversal: (type: traversalType) => void;
 	getHeight: () => number;
-	find: (element: T) => number;
-	findMin: () => number;
-	findMax: () => number;
+	find: (element: T) => BTreeNode<T>;
+	findMin: () => BTreeNode<T>;
+	findMax: () => BTreeNode<T>;
+	delete: (element: T) => void;
 }
 
 class BinarySearchTree<T> extends BinaryTree<T> implements BST<T> {
@@ -24,14 +23,17 @@ class BinarySearchTree<T> extends BinaryTree<T> implements BST<T> {
 		}
 	}
 
-	find = () => {
-		return -1;
+	find = (element: T) => {
+		return BinarySearchTree.Find(this.root, element);
 	};
 	findMin = () => {
-		return -1;
+		return BinarySearchTree.FindMin(this.root);
 	};
 	findMax = () => {
-		return -1;
+		return BinarySearchTree.FindMax(this.root);
+	};
+	delete = (element: T) => {
+		this.root = BinarySearchTree.Delete(this.root, element);
 	};
 
 	static Insert<T>(root: BTreeNode<T>, element: T): BTreeNode<T> {
@@ -45,6 +47,71 @@ class BinarySearchTree<T> extends BinaryTree<T> implements BST<T> {
 			root.right = BinarySearchTree.Insert(root.right, element);
 		} else {
 			// 不需要操作，要么比根大，要么比根小
+		}
+
+		return root;
+	}
+
+	static Find<T>(root: BTreeNode<T>, element: T): BTreeNode<T> {
+		if (!root) {
+			return null;
+		}
+
+		if (root.data > element) {
+			return BinarySearchTree.Find(root.left, element);
+		} else if (root.data < element) {
+			return BinarySearchTree.Find(root.right, element);
+		} else {
+			return root;
+		}
+	}
+
+	static FindMin<T>(root: BTreeNode<T>): BTreeNode<T> {
+		if (!root) {
+			return null;
+		}
+
+		if (!root.left) {
+			return root;
+		}
+
+		return BinarySearchTree.FindMin(root.left);
+	}
+
+	static FindMax<T>(root: BTreeNode<T>): BTreeNode<T> {
+		if (!root) {
+			return null;
+		}
+
+		if (!root.right) {
+			return root;
+		}
+
+		return BinarySearchTree.FindMax(root.right);
+	}
+
+	static Delete<T>(root: BTreeNode<T>, element: T): BTreeNode<T> {
+		if (!root) {
+			return;
+		}
+
+		if (element < root.data) {
+			root.left = BinarySearchTree.Delete(root.left, element);
+		} else if (element > root.data) {
+			root.right = BinarySearchTree.Delete(root.right, element);
+		} else if (element === root.data) {
+			/* root 就是要删除的结点 */
+			if (root.left && root.right) {
+				/* 改值 不改地址 */
+				root.data = BinarySearchTree.FindMax(root.left).data;
+				root.left = BinarySearchTree.Delete(root.left, root.data);
+			} else if (root.left && !root.right) {
+				root = root.left;
+			} else if (root.right && !root.left) {
+				root = root.right;
+			} else if (!root.left && !root.right) {
+				root = null;
+			}
 		}
 
 		return root;
