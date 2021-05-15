@@ -19,7 +19,7 @@ export class BTreeNodeLink<T> {
 
 type BTreeNode<T> = BTreeNodeSeq<T> | BTreeNodeLink<T>;
 
-export type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
+type traversalType = 'inOrder' | 'preOrder' | 'postOrder' | 'levelOrder';
 type traversalVisitor<T> = (node: BTreeNodeLink<T>) => void;
 
 // ================ type: 定义 tree ================
@@ -33,7 +33,7 @@ interface BTreeSeq<T> {
   toArray: () => Array<T>;
 }
 
-interface BTreeLink<T> {
+export interface BTreeLink<T> {
   root: BTreeNodeLink<T>;
   isEmpty: () => boolean;
   traversal: (type: traversalType) => void;

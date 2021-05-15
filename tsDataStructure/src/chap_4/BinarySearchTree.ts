@@ -1,10 +1,6 @@
-import BinaryTree, { BTreeNodeLink as BTreeNode, traversalType } from './BinaryTree';
+import BinaryTree, { BTreeNodeLink as BTreeNode, BTreeLink } from './BinaryTree';
 
-interface BST<T> {
-	root: BTreeNode<T>;
-	isEmpty: () => boolean;
-	traversal: (type: traversalType) => void;
-	getHeight: () => number;
+export interface BST<T> extends BTreeLink<T> {
 	find: (element: T) => BTreeNode<T>;
 	findMin: () => BTreeNode<T>;
 	findMax: () => BTreeNode<T>;
