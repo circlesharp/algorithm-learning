@@ -4,18 +4,15 @@ export interface BST<T> extends BTreeLink<T> {
 	find: (element: T) => BTreeNode<T>;
 	findMin: () => BTreeNode<T>;
 	findMax: () => BTreeNode<T>;
+	insert: (element: T) => void;
 	delete: (element: T) => void;
 }
 
 class BinarySearchTree<T> extends BinaryTree<T> implements BST<T> {
 	constructor(data: Array<T> = []) {
 		super();
-		let root: BTreeNode<T>;
-		for (let i = 0; i < data.length; i++) {
-			root = BinarySearchTree.Insert(this.root, data[i]);
-			if (i === 0) {
-				this.root = root;
-			}
+		for (const element of data) {
+			this.insert(element);
 		}
 	}
 
@@ -27,6 +24,9 @@ class BinarySearchTree<T> extends BinaryTree<T> implements BST<T> {
 	};
 	findMax = () => {
 		return BinarySearchTree.FindMax(this.root);
+	};
+	insert = (element: T) => {
+		this.root = BinarySearchTree.Insert(this.root, element);
 	};
 	delete = (element: T) => {
 		this.root = BinarySearchTree.Delete(this.root, element);

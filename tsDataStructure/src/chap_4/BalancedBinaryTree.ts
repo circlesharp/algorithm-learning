@@ -13,36 +13,114 @@
 import { BTreeNodeLink as BTreeNode } from './BinaryTree';
 import BinarySearchTree, { BST } from './BinarySearchTree';
 
-class AVLNode<T> extends BTreeNode<T> {
-	data: T;
-	left: BTreeNode<T> = null;
-	right: BTreeNode<T> = null;
-	height: number = 1;
-
-	constructor(data: T) {
-		super(data);
-	}
-}
-
 interface AVL<T> extends BST<T> {
-	// root: AVLNode<T>;
-	// isEmpty: () => boolean;
-	// traversal: (type: traversalType) => void;
-	// getHeight: () => number;
-	// find: (element: T) => AVLNode<T>;
-	// findMin: () => AVLNode<T>;
-	// findMax: () => AVLNode<T>;
-	// delete: (element: T) => void;
+	getBalanceFactor: () => number;
 }
 
 class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 	constructor(data: Array<T> = []) {
-		super(data);
-		this.root = new AVLNode(data[0]);
+		super();
+		for (const element of data) {
+			this.insert(element);
+		}
 	}
-	// find = (x) => {
-	// 	return this.root;
-	// };
+
+	insert = (element: T) => {
+		this.root = BalancedBinaryTree.Insert(this.root, element);
+	};
+
+	getBalanceFactor = () => {
+		return BalancedBinaryTree.GetBalanceFactor(this.root);
+	};
+
+	static Insert<T>(root: BTreeNode<T>, element: T): BTreeNode<T> {
+		if (!root) {
+			root = new BTreeNode(element);
+			root.height = 1;
+			return root;
+		}
+
+		if (element < root.data) {
+			root.left = BalancedBinaryTree.Insert(root.left, element);
+			if (BalancedBinaryTree.GetBalanceFactor(root) === 2) {
+				/* 需要左旋 */
+				if (element < root.left.data) {
+					/* 左单旋 */
+					root = BalancedBinaryTree.SingleLeftRotation(root);
+				} else {
+					/* 左-右双旋 */
+					root = BalancedBinaryTree.DoubleLeftRightRotation(root);
+				}
+			}
+		} else if (element > root.data) {
+			root.right = BalancedBinaryTree.Insert(root.right, element);
+			if (BalancedBinaryTree.GetBalanceFactor(root) === -2) {
+				if (element > root.right.data) {
+					root = BalancedBinaryTree.SingleRightRotation(root);
+				} else {
+					root = BalancedBinaryTree.DoubleRightLeftRotation(root);
+				}
+			}
+		} else if (element === root.data) {
+			/* 无需操作 */
+		}
+
+		/* 更新树高 */
+		root.height = BalancedBinaryTree._RefreshHeight(root);
+
+		return root;
+	}
+
+	/* 左单旋 */
+	static SingleLeftRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
+		const newRoot: BTreeNode<T> = root.left;
+		root.left = newRoot.right;
+		newRoot.right = root;
+
+		root.height = BalancedBinaryTree._RefreshHeight(root);
+		newRoot.height = BalancedBinaryTree._RefreshHeight(newRoot);
+
+		return newRoot;
+	}
+
+	/* 右单旋 */
+	static SingleRightRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
+		const newRoot: BTreeNode<T> = root.right;
+		root.right = newRoot.left;
+		newRoot.left = root;
+
+		root.height = BalancedBinaryTree._RefreshHeight(root);
+		newRoot.height = BalancedBinaryTree._RefreshHeight(newRoot);
+
+		return newRoot;
+	}
+
+	/* 左-右双旋 */
+	static DoubleLeftRightRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
+		root.left = BalancedBinaryTree.SingleRightRotation(root.left);
+		return BalancedBinaryTree.SingleLeftRotation(root);
+	}
+
+	/* 右-左双旋 */
+	static DoubleRightLeftRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
+		root.right = BalancedBinaryTree.SingleLeftRotation(root.right);
+		return BalancedBinaryTree.SingleRightRotation(root);
+	}
+
+	static GetHeight<T>(root: BTreeNode<T>): number {
+		return root?.height || 0;
+	}
+
+	static GetBalanceFactor<T>(root: BTreeNode<T>): number {
+		return BalancedBinaryTree.GetHeight(root.left) - BalancedBinaryTree.GetHeight(root.right);
+	}
+
+	static _RefreshHeight<T>(root: BTreeNode<T>): number {
+		return Math.max(
+			BalancedBinaryTree.GetHeight(root.left),
+			BalancedBinaryTree.GetHeight(root.right),
+		) + 1;
+	}
 }
 
 export default BalancedBinaryTree;
