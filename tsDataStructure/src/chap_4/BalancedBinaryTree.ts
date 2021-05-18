@@ -42,28 +42,14 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 
 		if (element < root.data) {
 			root.left = BalancedBinaryTree.Insert(root.left, element);
-			if (BalancedBinaryTree.GetBalanceFactor(root) === 2) {
-				/* 需要调整 */
-				if (element < root.left.data) {
-					/* 右单旋 */
-					root = BalancedBinaryTree.SingleRightRotation(root);
-				} else {
-					/* 左-右双旋 */
-					root = BalancedBinaryTree.DoubleLeftRightRotation(root);
-				}
-			}
 		} else if (element > root.data) {
 			root.right = BalancedBinaryTree.Insert(root.right, element);
-			if (BalancedBinaryTree.GetBalanceFactor(root) === -2) {
-				if (element > root.right.data) {
-					root = BalancedBinaryTree.SingleLeftRotation(root);
-				} else {
-					root = BalancedBinaryTree.DoubleRightLeftRotation(root);
-				}
-			}
 		} else if (element === root.data) {
 			/* 无需操作 */
 		}
+
+		/* 平衡化 */
+		root = BalancedBinaryTree._Rebalance(root);
 
 		/* 更新树高 */
 		root.height = BalancedBinaryTree._RefreshHeight(root);
@@ -113,6 +99,31 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 
 	static GetBalanceFactor<T>(root: BTreeNode<T>): number {
 		return BalancedBinaryTree.GetHeight(root.left) - BalancedBinaryTree.GetHeight(root.right);
+	}
+
+	static _Rebalance<T>(root: BTreeNode<T>): BTreeNode<T> {
+		if (BalancedBinaryTree.GetBalanceFactor(root) === 2) {
+			/* 需要调整 */
+			if (BalancedBinaryTree.GetBalanceFactor(root.left) === 1) {
+				/* 右单旋 BF === 1 */
+				root = BalancedBinaryTree.SingleRightRotation(root);
+			} else {
+				/* 左-右双旋 BF === -1 */
+				root = BalancedBinaryTree.DoubleLeftRightRotation(root);
+			}
+		} else if (BalancedBinaryTree.GetBalanceFactor(root) === -2) {
+			if (BalancedBinaryTree.GetBalanceFactor(root.right) === -1) {
+				/* 左单旋 BF === -1 */
+				root = BalancedBinaryTree.SingleLeftRotation(root);
+			} else {
+				/* 右-左双旋 BF === 1 */
+				root = BalancedBinaryTree.DoubleRightLeftRotation(root);
+			}
+		} else {
+			/* 不需操作 */
+		}
+
+		return root;
 	}
 
 	static _RefreshHeight<T>(root: BTreeNode<T>): number {
