@@ -29,6 +29,10 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 		this.root = BalancedBinaryTree.Insert(this.root, element);
 	};
 
+	delete = (element: T) => {
+		this.root = BalancedBinaryTree.Delete(this.root, element);
+	};
+
 	getBalanceFactor = () => {
 		return BalancedBinaryTree.GetBalanceFactor(this.root);
 	};
@@ -53,6 +57,14 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 
 		/* 更新树高 */
 		root.height = BalancedBinaryTree._RefreshHeight(root);
+
+		return root;
+	}
+
+	static Delete<T>(root: BTreeNode<T>, element: T): BTreeNode<T> {
+		root = BinarySearchTree.Delete(root, element);
+		root.left = BalancedBinaryTree._Rebalance(root.left);
+		root.right = BalancedBinaryTree._Rebalance(root.right);
 
 		return root;
 	}
