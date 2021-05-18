@@ -43,10 +43,10 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 		if (element < root.data) {
 			root.left = BalancedBinaryTree.Insert(root.left, element);
 			if (BalancedBinaryTree.GetBalanceFactor(root) === 2) {
-				/* 需要左旋 */
+				/* 需要调整 */
 				if (element < root.left.data) {
-					/* 左单旋 */
-					root = BalancedBinaryTree.SingleLeftRotation(root);
+					/* 右单旋 */
+					root = BalancedBinaryTree.SingleRightRotation(root);
 				} else {
 					/* 左-右双旋 */
 					root = BalancedBinaryTree.DoubleLeftRightRotation(root);
@@ -56,7 +56,7 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 			root.right = BalancedBinaryTree.Insert(root.right, element);
 			if (BalancedBinaryTree.GetBalanceFactor(root) === -2) {
 				if (element > root.right.data) {
-					root = BalancedBinaryTree.SingleRightRotation(root);
+					root = BalancedBinaryTree.SingleLeftRotation(root);
 				} else {
 					root = BalancedBinaryTree.DoubleRightLeftRotation(root);
 				}
@@ -73,18 +73,6 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 
 	/* 左单旋 */
 	static SingleLeftRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
-		const newRoot: BTreeNode<T> = root.left;
-		root.left = newRoot.right;
-		newRoot.right = root;
-
-		root.height = BalancedBinaryTree._RefreshHeight(root);
-		newRoot.height = BalancedBinaryTree._RefreshHeight(newRoot);
-
-		return newRoot;
-	}
-
-	/* 右单旋 */
-	static SingleRightRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
 		const newRoot: BTreeNode<T> = root.right;
 		root.right = newRoot.left;
 		newRoot.left = root;
@@ -95,16 +83,28 @@ class BalancedBinaryTree<T> extends BinarySearchTree<T> implements AVL<T> {
 		return newRoot;
 	}
 
+	/* 右单旋 */
+	static SingleRightRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
+		const newRoot: BTreeNode<T> = root.left;
+		root.left = newRoot.right;
+		newRoot.right = root;
+
+		root.height = BalancedBinaryTree._RefreshHeight(root);
+		newRoot.height = BalancedBinaryTree._RefreshHeight(newRoot);
+
+		return newRoot;
+	}
+
 	/* 左-右双旋 */
 	static DoubleLeftRightRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
-		root.left = BalancedBinaryTree.SingleRightRotation(root.left);
-		return BalancedBinaryTree.SingleLeftRotation(root);
+		root.left = BalancedBinaryTree.SingleLeftRotation(root.left);
+		return BalancedBinaryTree.SingleRightRotation(root);
 	}
 
 	/* 右-左双旋 */
 	static DoubleRightLeftRotation<T>(root: BTreeNode<T>): BTreeNode<T> {
-		root.right = BalancedBinaryTree.SingleLeftRotation(root.right);
-		return BalancedBinaryTree.SingleRightRotation(root);
+		root.right = BalancedBinaryTree.SingleRightRotation(root.right);
+		return BalancedBinaryTree.SingleLeftRotation(root);
 	}
 
 	static GetHeight<T>(root: BTreeNode<T>): number {
