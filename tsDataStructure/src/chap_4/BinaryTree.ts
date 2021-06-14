@@ -12,6 +12,7 @@ export class BTreeNodeLink<T> {
   left: BTreeNodeLink<T> = null;
   right: BTreeNodeLink<T> = null;
   height?: number;
+  weight?: number;
 
   constructor(data: T) {
     this.data = data;
