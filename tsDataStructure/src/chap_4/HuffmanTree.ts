@@ -15,6 +15,8 @@ interface HuffmanDict {
 }
 
 class HuffmanNode<T> extends BTreeNodeLink<T> {
+	left: HuffmanNode<T>;
+	right: HuffmanNode<T>;
 	weight: number;
 
 	constructor(data: T, weight: number) {
@@ -69,8 +71,8 @@ class HuffmanTree<T> extends BinaryTree<T> {
 			dict[String(root.data)] = code;
 		}
 
-		HuffmanTree.GenCodeDictionary(root.left as HuffmanNode<T>, dict, `${code}0`);
-		HuffmanTree.GenCodeDictionary(root.right as HuffmanNode<T>, dict, `${code}1`);
+		HuffmanTree.GenCodeDictionary(root.left, dict, `${code}0`);
+		HuffmanTree.GenCodeDictionary(root.right, dict, `${code}1`);
 	}
 }
 
