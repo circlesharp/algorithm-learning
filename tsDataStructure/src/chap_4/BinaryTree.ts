@@ -243,68 +243,81 @@ export class BinaryTreeLink<T> implements BTreeLink<T> {
 
   /* 迭代_中序遍历 VLR */
   static _iterativeInOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
-    if (!root) {
-      return;
-    }
+    if (root == null) return;
 
-    const stack = new StackLink([], 100);
-    let tmpNode = root;
-    while (!stack.isEmpty() || tmpNode) {
-      if (tmpNode) {
-        stack.push(tmpNode);
-        tmpNode = tmpNode.left;
-      } else {
-        tmpNode = stack.pop();
-        visit(tmpNode);
-        tmpNode = tmpNode.right;
+    const stack = new StackLink<BTreeNodeLink<T>>();
+    let node = root;
+
+    while (node != null || !stack.isEmpty()) {
+      // * 相当于 traversal(node.left);
+      while (node != null) {
+        stack.push(node);
+        node = node.left;
       }
+
+      // * 控制器
+      node = stack.pop();
+
+      // * 相当于 visit(node);
+      visit(node);
+
+      // * 相当于 traversal(node.right);
+      node = node.right;
     }
   }
   /* 迭代_先序遍历 LVR */
   static _iterativePreOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
-    if (!root) {
-      return;
-    }
+    if (root == null) return;
 
-    const stack = new StackLink([root], 100);
-    let tmpNode = root;
+    const stack = new StackLink<BTreeNodeLink<T>>();
+    let node = root;
 
-    while (!stack.isEmpty()) {
-      tmpNode = stack.pop();
-      visit(tmpNode);
-      if (tmpNode.right) {
-        stack.push(tmpNode.right);
+    while (node != null || !stack.isEmpty()) {
+      while (node != null) {
+        // * 相当于 visit(node);
+        visit(node);
+
+        // * 相当于 traversal(node.left);
+        stack.push(node);
+        node = node.left;
       }
-      if (tmpNode.left) {
-        stack.push(tmpNode.left);
-      }
+
+      // * 控制器
+      node = stack.pop();
+
+      // * 相当于 traversal(node.right);
+      node = node.right;
     }
   }
   /* 迭代_后序遍历 LRV */
   static _iterativePostOrderTraversal<T>(root: BTreeNodeLink<T>, visit: traversalVisitor<T>) {
-    if (!root) {
-      return;
-    }
+    if (root == null) return;
 
-    const stack = new StackLink<BTreeNodeLink<T>>([root], 100);
-    const outputStack = new StackLink<BTreeNodeLink<T>>([], 100);
-    let tmpNode = root;
+    const stack = new StackLink<BTreeNodeLink<T>>();
+    let node = root;
+    let prev: BTreeNodeLink<T>;
 
-    while (!stack.isEmpty()) {
-      tmpNode = stack.pop();
-      outputStack.push(tmpNode);
-
-      if (tmpNode.left) {
-        stack.push(tmpNode.left);
+    while (node != null || !stack.isEmpty()) {
+      // * 相当于 traversal(node.left);
+      while (node != null) {
+        stack.push(node);
+        node = node.left;
       }
 
-      if (tmpNode.right) {
-        stack.push(tmpNode.right);
-      }
-    }
+      // * 控制器
+      node = stack.pop();
 
-    while (!outputStack.isEmpty()) {
-      visit(outputStack.pop());
+      // node.right !== prev 是为了溯游而上
+      if (node.right != null && node.right != prev) {
+        // * 相当于 traversal(node.right);
+        stack.push(node);
+        node = node.right;
+      } else {
+        // * 相当于 visit(node);
+        visit(node);
+        prev = node;
+        node = null;
+      }
     }
   }
 
